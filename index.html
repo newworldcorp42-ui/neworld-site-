@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEWORLD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --card:    #181818;
+      --border:  #222222;
+      --muted:   #555555;
+      --light:   #aaaaaa;
+      --white:   #f5f5f5;
+      --accent:  #c8f135;
+      --accent2: #9dbb1e;
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-main);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--black) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+    .nav-cta:hover { background: var(--accent2); color: var(--black) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: 0.3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,241,53,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 70%, rgba(200,241,53,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      background: rgba(200,241,53,0.1);
+      border: 1px solid rgba(200,241,53,0.25);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: var(--font-main);
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .accent { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--light);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: var(--accent);
+      padding: 0.6rem 0;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: ticker 22s linear infinite;
+    }
+    .ticker-track span {
+      display: inline-block;
+      padding: 0 2rem;
+      font-family: var(--font-main);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 100px 5%;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-main);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--light);
+      font-size: 1rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* ── DIVISIONS ── */
+    #divisions { background: var(--dark); }
+
+    .divisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+    }
+
+    .division-card {
+      background: var(--dark);
+      padding: 2.5rem;
+      cursor: default;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .division-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+    .division-card:hover { background: var(--card); }
+    .division-card:hover::after { width: 100%; }
+
+    .division-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .division-name {
+      font-family: var(--font-main);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+      color: var(--white);
+    }
+
+    .division-desc {
+      font-size: 0.875rem;
+      color: var(--light);
+      line-height: 1.6;
+    }
+
+    /* ── MERCH ── */
+    #merch { background: var(--black); }
+
+    .merch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .merch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+
+    .product-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .product-info {
+      padding: 1.2rem 1.4rem 1.4rem;
+    }
+
+    .product-name {
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.02em;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-family: var(--font-main);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .product-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .product-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+
+    /* ── FORMATIONS ── */
+    #formations { background: var(--dark); }
+
+    .formations-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .formation-item {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: var(--card);
+      transition: border-color 0.3s;
+    }
+    .formation-item:hover { border-color: var(--accent); }
+
+    .formation-num {
+      font-family: var(--font-main);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      min-width: 2.5rem;
+      opacity: 0.4;
+    }
+
+    .formation-body {}
+
+    .formation-title {
+      font-family: var(--font-main);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .formation-info {
+      font-size: 0.8rem;
+      color: var(--light);
+      line-height: 1.5;
+    }
+
+    .formation-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(200,241,53,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(200,241,53,0.2);
+    }
+
+    .formations-visual {
+      position: sticky;
+      top: 100px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .formations-visual .big-num {
+      font-family: var(--font-main);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .formations-visual .big-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .stat-row .stat-label { color: var(--light); }
+    .stat-row .stat-val { font-weight: 600; color: var(--white); }
+
+    /* ── EVENTS ── */
+    #events { background: var(--black); }
+
+    .events-list {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .event-row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .event-row:last-child { border-bottom: none; }
+    .event-row:hover { background: var(--card); }
+
+    .event-date-block {
+      text-align: center;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem;
+    }
+
+    .event-date-day {
+      font-family: var(--font-main);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .event-date-month {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .event-name {
+      font-family: var(--font-main);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .event-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .event-status {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+    }
+    .event-status.open { background: rgba(200,241,53,0.1); color: var(--accent); border: 1px solid rgba(200,241,53,0.3); }
+    .event-status.soon { background: rgba(255,165,0,0.1); color: #ffa500; border: 1px solid rgba(255,165,0,0.3); }
+    .event-status.soldout { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+    .events-empty {
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--muted);
+    }
+    .events-empty .empty-icon { font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.4; }
+    .events-empty p { font-size: 0.9rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--dark); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: rgba(200,241,53,0.1);
+      border: 1px solid rgba(200,241,53,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-detail-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .contact-socials {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--light);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .contact-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.7rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--muted); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.4rem;
+    }
+    .form-submit:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form-success .check { font-size: 2.5rem; margin-bottom: 0.8rem; display: block; }
+    .form-success p { color: var(--light); font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 3rem 5%;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--accent); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .formations-layout { grid-template-columns: 1fr; }
+      .formations-visual { position: static; }
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      nav .nav-cta { display: none; }
+
+      .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
+
+      .event-row { grid-template-columns: 70px 1fr; }
+      .event-status { display: none; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 1rem; }
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-main);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 5%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#hero"       onclick="closeMobileMenu()">Accueil</a>
+  <a href="#divisions"  onclick="closeMobileMenu()">Divisions</a>
+  <a href="#merch"      onclick="closeMobileMenu()">Merch</a>
+  <a href="#formations" onclick="closeMobileMenu()">Formations</a>
+  <a href="#events"     onclick="closeMobileMenu()">Événements</a>
+  <a href="#contact"    onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">NEW<span>ORLD</span></a>
+  <ul class="nav-links">
+    <li><a href="#divisions">Divisions</a></li>
+    <li><a href="#merch">Merch</a></li>
+    <li><a href="#formations">Formations</a></li>
+    <li><a href="#events">Événements</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#merch" class="nav-cta">Shop</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">Bienvenue dans le nouveau monde</div>
+  <h1 class="hero-title">NEW<span class="accent">ORLD</span></h1>
+  <p class="hero-sub">Streetwear, culture et formation. Un univers construit pour ceux qui refusent les limites.</p>
+  <div class="hero-actions">
+    <a href="#merch" class="btn-primary">Découvrir la collection</a>
+    <a href="#formations" class="btn-secondary">Nos formations</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span>NEWORLD</span><span>—</span>
+    <span>STREETWEAR</span><span>—</span>
+    <span>CULTURE</span><span>—</span>
+    <span>FORMATION</span><span>—</span>
+    <span>NEWORLD</span><span>—</span>
+    <span>COLLAB</span><span>—</span>
+    <span>NEW DROP</span><span>—</span>
+    <span>NEWORLD</span><span>—</span>
+    <span>STREETWEAR</span><span>—</span>
+    <span>CULTURE</span><span>—</span>
+    <span>FORMATION</span><span>—</span>
+    <span>NEWORLD</span><span>—</span>
+    <span>COLLAB</span><span>—</span>
+    <span>NEW DROP</span><span>—</span>
+  </div>
+</div>
+
+<!-- DIVISIONS -->
+<section id="divisions">
+  <p class="section-label reveal">Notre univers</p>
+  <h2 class="section-title reveal">Les divisions<br>NEWORLD</h2>
+  <p class="section-desc reveal">Un écosystème complet autour de la culture streetwear, de la création et du développement personnel.</p>
+
+  <div class="divisions-grid reveal">
+    <div class="division-card">
+      <span class="division-icon">👗</span>
+      <div class="division-name">NEWORLD Apparel</div>
+      <div class="division-desc">Notre ligne de vêtements streetwear. Des pièces pensées pour s'exprimer au quotidien avec style et authenticité.</div>
+    </div>
+    <div class="division-card">
+      <span class="division-icon">🎓</span>
+      <div class="division-name">NEWORLD Academy</div>
+      <div class="division-desc">Formations en entrepreneuriat, marketing digital et développement personnel pour la prochaine génération.</div>
+    </div>
+    <div class="division-card">
+      <span class="division-icon">🎤</span>
+      <div class="division-name">NEWORLD Events</div>
+      <div class="division-desc">Soirées, pop-ups, showcases. Des expériences immersives qui rassemblent la communauté autour de la culture.</div>
+    </div>
+    <div class="division-card">
+      <span class="division-icon">🤝</span>
+      <div class="division-name">NEWORLD Collabs</div>
+      <div class="division-desc">Collaborations exclusives avec des artistes, marques et créateurs partageant notre vision du monde.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH -->
+<section id="merch">
+  <div class="merch-header">
+    <div>
+      <p class="section-label reveal">Collection</p>
+      <h2 class="section-title reveal">La boutique</h2>
+    </div>
+    <a href="#contact" class="btn-secondary reveal">Commande spéciale →</a>
+  </div>
+
+  <div class="merch-grid" id="merch-grid">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section id="formations">
+  <div class="formations-layout">
+    <div>
+      <p class="section-label reveal">Apprendre</p>
+      <h2 class="section-title reveal">Nos formations</h2>
+      <p class="section-desc reveal">Des programmes conçus pour te donner les clés de l'entrepreneuriat, du marketing et de la croissance personnelle.</p>
+
+      <div id="formations-list">
+        <div class="formation-item reveal">
+          <div class="formation-num">01</div>
+          <div class="formation-body">
+            <div class="formation-title">Entrepreneuriat Street</div>
+            <div class="formation-info">Crée ton projet de A à Z. Business model, financement, lancement et scaling.</div>
+            <div class="formation-tags">
+              <span class="tag">8 semaines</span>
+              <span class="tag">En ligne</span>
+              <span class="tag">Débutant</span>
+            </div>
+          </div>
+        </div>
+        <div class="formation-item reveal">
+          <div class="formation-num">02</div>
+          <div class="formation-body">
+            <div class="formation-title">Marketing Digital & Réseaux</div>
+            <div class="formation-info">Maîtrise Instagram, TikTok et les outils digitaux pour développer ta marque en ligne.</div>
+            <div class="formation-tags">
+              <span class="tag">6 semaines</span>
+              <span class="tag">En ligne</span>
+              <span class="tag">Intermédiaire</span>
+            </div>
+          </div>
+        </div>
+        <div class="formation-item reveal">
+          <div class="formation-num">03</div>
+          <div class="formation-body">
+            <div class="formation-title">Création de Marque</div>
+            <div class="formation-info">Identité visuelle, storytelling, positionnement. Tout ce qu'il faut pour construire une marque forte.</div>
+            <div class="formation-tags">
+              <span class="tag">4 semaines</span>
+              <span class="tag">Hybride</span>
+              <span class="tag">Tous niveaux</span>
+            </div>
+          </div>
+        </div>
+        <div class="formation-item reveal">
+          <div class="formation-num">04</div>
+          <div class="formation-body">
+            <div class="formation-title">Mindset & Leadership</div>
+            <div class="formation-info">Développe la mentalité et les compétences humaines des grandes réussites. Discipline, vision, influence.</div>
+            <div class="formation-tags">
+              <span class="tag">5 semaines</span>
+              <span class="tag">En ligne</span>
+              <span class="tag">Tous niveaux</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formations-visual reveal">
+      <div class="big-num">4</div>
+      <div class="big-label">programmes disponibles</div>
+
+      <div class="stat-row">
+        <span class="stat-label">Étudiants formés</span>
+        <span class="stat-val">+350</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Satisfaction</span>
+        <span class="stat-val">96%</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Format</span>
+        <span class="stat-val">En ligne & présentiel</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Langue</span>
+        <span class="stat-val">Français</span>
+      </div>
+
+      <br />
+      <a href="#contact" class="btn-primary" style="display:block;text-align:center;">S'inscrire →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:3rem;">
+    <div>
+      <p class="section-label reveal">Agenda</p>
+      <h2 class="section-title reveal">Événements</h2>
+    </div>
+    <a href="#contact" class="btn-secondary reveal">Être notifié →</a>
+  </div>
+  <div class="events-list reveal" id="events-list">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div>
+      <p class="section-label reveal">Écrire</p>
+      <h2 class="section-title reveal">Nous contacter</h2>
+      <p class="section-desc reveal">Une question, une collab, une inscription à une formation ? On est là.</p>
+
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">contact@neworld.fr</div>
+        </div>
+      </div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-detail-label">Localisation</div>
+          <div class="contact-detail-value">France — Paris & online</div>
+        </div>
+      </div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">⏱️</div>
+        <div>
+          <div class="contact-detail-label">Réponse</div>
+          <div class="contact-detail-value">Sous 48h ouvrées</div>
+        </div>
+      </div>
+
+      <div class="contact-socials reveal">
+        <a href="#" class="social-btn">📷 Instagram</a>
+        <a href="#" class="social-btn">🎵 TikTok</a>
+        <a href="#" class="social-btn">💬 Telegram</a>
+        <a href="#" class="social-btn">▶️ YouTube</a>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" placeholder="Ton prénom" required />
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" placeholder="Ton nom" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="ton@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Sujet</label>
+          <select>
+            <option value="">Choisir un sujet</option>
+            <option>Commande / Merch</option>
+            <option>Formation</option>
+            <option>Collaboration</option>
+            <option>Événement</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Dis-nous tout..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Envoyer le message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <span class="check">✅</span>
+        <h3 style="margin-bottom:0.5rem;font-family:var(--font-main)">Message envoyé !</h3>
+        <p>On revient vers toi sous 48h. Merci de nous contacter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">NEW<span>ORLD</span></div>
+    <ul class="footer-links">
+      <li><a href="#divisions">Divisions</a></li>
+      <li><a href="#merch">Merch</a></li>
+      <li><a href="#formations">Formations</a></li>
+      <li><a href="#events">Événements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2026 NEWORLD. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script>
+  /* ── DATA ── */
+  const products = [
+  { id:"p1", nom:"Hoodie NEWORLD Essential", prix:79, emoji:"🧥", desc:"Hoodie essentiel de la collection NEWORLD, confort premium.", badge:"Bestseller" },
+  { id:"p2", nom:"T-shirt Logo NW", prix:39, emoji:"👕", desc:"T-shirt emblématique avec le logo NW, coupe moderne.", badge:null },
+  { id:"p3", nom:"Jacket NEWORLD Collab", prix:129, emoji:"🥷", desc:"Jacket exclusive issue de la collaboration NEWORLD.", badge:"Collab" },
+  { id:"p4", nom:"Cap NW Signature", prix:34, emoji:"🧢", desc:"Casquette signature NW, style streetwear.", badge:null }
+];
+
+  const events = [];
+
+  /* ── RENDER PRODUCTS ── */
+  const grid = document.getElementById('merch-grid');
+  products.forEach(p => {
+    grid.innerHTML += `
+      <div class="product-card reveal">
+        <div class="product-img">
+          ${p.emoji}
+          ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        </div>
+        <div class="product-info">
+          <div class="product-name">${p.nom}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-footer">
+            <div class="product-price">${p.prix} €</div>
+            <button class="product-btn" onclick="addToCart('${p.nom}')">Ajouter</button>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  /* ── RENDER EVENTS ── */
+  const evList = document.getElementById('events-list');
+  if (events.length === 0) {
+    evList.innerHTML = `
+      <div class="events-empty">
+        <span class="empty-icon">🗓️</span>
+        <p>Aucun événement programmé pour l'instant.<br>Inscris-toi pour être notifié en premier.</p>
+      </div>`;
+  } else {
+    events.forEach(e => {
+      const statusLabel = { open: 'Inscriptions ouvertes', soon: 'Bientôt', soldout: 'Complet' }[e.status];
+      evList.innerHTML += `
+        <div class="event-row">
+          <div class="event-date-block">
+            <div class="event-date-day">${e.day}</div>
+            <div class="event-date-month">${e.month}</div>
+          </div>
+          <div>
+            <div class="event-name">${e.name}</div>
+            <div class="event-meta">${e.meta}</div>
+          </div>
+          <span class="event-status ${e.status}">${statusLabel}</span>
+        </div>`;
+    });
+  }
+
+  /* ── CART FEEDBACK ── */
+  function addToCart(name) {
+    const btn = event.currentTarget;
+    btn.textContent = '✓ Ajouté';
+    btn.style.background = 'var(--accent)';
+    btn.style.color = 'var(--black)';
+    btn.style.borderColor = 'var(--accent)';
+    setTimeout(() => {
+      btn.textContent = 'Ajouter';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  }
+
+  /* ── CONTACT FORM ── */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+
+  /* ── MOBILE MENU ── */
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('mobileClose').addEventListener('click', closeMobileMenu);
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+        observer.unobserve(el.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── DYNAMIC REVEALS for injected content ── */
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+  }, 100);
+</script>
+</body>
+</html>
