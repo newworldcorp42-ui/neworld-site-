@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWORLD Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#f8f9ff;color:#080808;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(248,249,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,87,255,0.08);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:#0057FF}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#888;transition:color 0.2s}
+.nav-links a:hover{color:#0057FF}
+.nav-back{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#aaa;transition:color 0.2s}
+.nav-back:hover{color:#0057FF}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(0,87,255,0.08);background:#fff}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,87,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,87,255,0.03) 1px,transparent 1px);background-size:50px 50px}
+.hero-glow{position:absolute;right:10%;top:20%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,87,255,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:#0057FF;border:1px solid rgba(0,87,255,0.2);padding:0.4rem 1rem;margin-bottom:2rem}
+.ai-dot{width:6px;height:6px;background:#0057FF;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,9vw,9rem);font-weight:800;line-height:0.9;letter-spacing:-0.02em;margin-bottom:2rem}
+.hero-title .blue{color:#0057FF}
+.hero-title .outline{-webkit-text-stroke:2px #080808;color:transparent}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-desc{max-width:480px;font-size:0.95rem;line-height:1.85;color:#666}
+.hero-cta{background:#0057FF;color:#fff;padding:1rem 2.5rem;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;display:inline-block;margin-top:1.5rem}
+.hero-cta:hover{background:#0040cc}
+.hero-stats{display:flex;gap:3rem}
+.h-stat span{display:block;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#0057FF}
+.h-stat small{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:#aaa}
+
+/* SECTION LABEL */
+.section-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#0057FF;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;opacity:0.7}
+.section-label::after{content:'';flex:1;height:0.5px;background:rgba(0,87,255,0.1)}
+
+/* QUIZ SECTION */
+.quiz-section{padding:6rem 3rem;background:#0057FF;border-bottom:1px solid rgba(0,87,255,0.1);position:relative;overflow:hidden}
+.quiz-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:40px 40px}
+.quiz-section-inner{max-width:900px;margin:0 auto;position:relative}
+.quiz-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
+.quiz-intro-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-0.02em;margin-bottom:1rem}
+.quiz-intro-title span{-webkit-text-stroke:1px #fff;color:transparent}
+.quiz-intro-desc{font-size:0.88rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:2rem}
+.quiz-features{display:flex;flex-direction:column;gap:0.75rem}
+.quiz-feature{display:flex;align-items:center;gap:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.7)}
+.quiz-feature::before{content:'';width:6px;height:6px;background:#fff;border-radius:50%;flex-shrink:0}
+.quiz-start-box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:3rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.5rem}
+.quiz-start-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(255,255,255,0.15);line-height:1;letter-spacing:0.1em}
+.quiz-start-label{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.quiz-start-desc{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7}
+.btn-quiz{background:#fff;color:#0057FF;padding:1.1rem 2.5rem;font-size:0.82rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.25s;width:100%}
+.btn-quiz:hover{background:#e8f0ff}
+
+/* QUIZ CONTAINER */
+#quiz-container{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:3rem;margin-top:2rem}
+.quiz-progress-bar{height:3px;background:rgba(255,255,255,0.1);margin-bottom:2rem;overflow:hidden}
+.quiz-progress-fill{height:100%;background:#fff;transition:width 0.4s ease;width:0%}
+.quiz-q-num{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1rem}
+.quiz-q-text{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:700;color:#fff;line-height:1.3;margin-bottom:2rem}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:2rem}
+.quiz-option{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:1rem 1.25rem;cursor:pointer;transition:all 0.2s;text-align:left;display:flex;align-items:center;gap:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif}
+.quiz-option:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.25);color:#fff}
+.quiz-option.selected{background:rgba(255,255,255,0.15);border-color:#fff;color:#fff}
+.quiz-opt-letter{width:26px;height:26px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:600;flex-shrink:0;color:rgba(255,255,255,0.4)}
+.quiz-option.selected .quiz-opt-letter{background:#fff;color:#0057FF}
+.btn-quiz-next{background:#fff;color:#0057FF;padding:0.9rem 2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;display:none}
+.btn-quiz-next:hover{background:#e8f0ff}
+.btn-quiz-next.show{display:inline-block}
+
+/* LOADING QUIZ */
+#quiz-loading{display:none;text-align:center;padding:3rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);margin-top:2rem}
+.loading-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:1.5rem}
+.loading-title span{-webkit-text-stroke:1px #fff;color:transparent}
+.dots{display:flex;justify-content:center;gap:0.5rem;margin-bottom:1rem}
+.dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:dotAnim 1.2s infinite}
+.dot:nth-child(2){animation-delay:0.2s}
+.dot:nth-child(3){animation-delay:0.4s}
+@keyframes dotAnim{0%,100%{opacity:0.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+.loading-sub{font-size:0.78rem;color:rgba(255,255,255,0.35);letter-spacing:0.1em}
+
+/* RÉSULTATS QUIZ */
+#quiz-result{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:3rem;margin-top:2rem}
+.result-header{margin-bottom:2rem}
+.result-profile-tag{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem}
+.result-profile-name{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:800;color:#fff;line-height:1;margin-bottom:1rem}
+.result-analysis{font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:2rem;padding:1.25rem;background:rgba(255,255,255,0.05);border-left:3px solid rgba(255,255,255,0.3)}
+.result-recs-title{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.25rem}
+.result-recs{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem}
+.result-rec{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:border-color 0.2s}
+.result-rec:hover{border-color:rgba(255,255,255,0.25)}
+.rec-left{flex:1}
+.rec-type{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.3rem}
+.rec-name{font-size:0.88rem;font-weight:500;color:#fff;margin-bottom:0.25rem}
+.rec-why{font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5}
+.rec-price{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;white-space:nowrap}
+.result-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-result-main{background:#fff;color:#0057FF;padding:1rem 2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s}
+.btn-result-main:hover{background:#e8f0ff}
+.btn-result-retry{background:transparent;color:rgba(255,255,255,0.4);padding:1rem 1.5rem;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:all 0.2s}
+.btn-result-retry:hover{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)}
+
+/* EBOOKS */
+.ebooks{padding:6rem 3rem;border-bottom:1px solid rgba(0,87,255,0.06)}
+.ebooks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.ebook-card{background:#fff;border:1px solid rgba(0,87,255,0.1);overflow:hidden;transition:all 0.25s;cursor:pointer;position:relative}
+.ebook-card:hover{border-color:rgba(0,87,255,0.35);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,87,255,0.08)}
+.ebook-badge{position:absolute;top:1rem;right:1rem;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.25rem 0.65rem;font-weight:600;z-index:2}
+.badge-new{background:#0057FF;color:#fff}
+.badge-soon{background:rgba(0,0,0,0.06);color:#aaa}
+.ebook-cover{height:200px;display:flex;align-items:center;justify-content:center;position:relative}
+.ebook-cover-text{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.12em;text-align:center;line-height:1.5;padding:1.5rem;color:#fff;position:relative;z-index:1}
+.ebook-info{padding:1.5rem}
+.ebook-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;background:rgba(0,87,255,0.08);color:#0057FF;padding:0.25rem 0.65rem;margin-bottom:0.75rem}
+.ebook-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.6rem;color:#080808;line-height:1.3}
+.ebook-desc{font-size:0.78rem;line-height:1.75;color:#888;margin-bottom:1.25rem}
+.ebook-modules{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1.25rem}
+.ebook-module{font-size:0.72rem;color:#666;display:flex;align-items:center;gap:0.5rem}
+.ebook-module::before{content:'';width:4px;height:4px;background:#0057FF;border-radius:50%;flex-shrink:0}
+.ebook-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,87,255,0.06);padding-top:1rem}
+.ebook-price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#0057FF}
+.ebook-price.soon{font-size:0.75rem;font-weight:400;color:#aaa;letter-spacing:0.1em;text-transform:uppercase}
+.ebook-btn{background:#0057FF;color:#fff;padding:0.5rem 1.2rem;font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s}
+.ebook-btn:hover{background:#0040cc}
+.ebook-btn.disabled{background:rgba(0,0,0,0.05);color:#ccc;cursor:default}
+
+/* FORMATIONS */
+.formations{padding:6rem 3rem;background:#fff;border-bottom:1px solid rgba(0,87,255,0.06)}
+.formations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.formation-card{border:1px solid rgba(0,87,255,0.08);padding:2rem;background:#f8f9ff;transition:all 0.25s}
+.formation-card:hover{border-color:rgba(0,87,255,0.3);background:#fff;transform:translateY(-3px)}
+.formation-num{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#0057FF;letter-spacing:0.2em;margin-bottom:1rem;opacity:0.6}
+.formation-icon{font-size:1.8rem;margin-bottom:1rem}
+.formation-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.75rem;color:#080808}
+.formation-desc{font-size:0.78rem;line-height:1.8;color:#888;margin-bottom:1.5rem}
+.formation-modules{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem}
+.formation-module{font-size:0.72rem;color:#666;display:flex;align-items:center;gap:0.5rem}
+.formation-module::before{content:'';width:4px;height:4px;background:#0057FF;border-radius:50%;flex-shrink:0}
+.formation-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,87,255,0.06);padding-top:1rem}
+.formation-price{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#0057FF}
+.formation-btn{font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#0057FF;border-bottom:1px solid rgba(0,87,255,0.25);padding-bottom:0.15rem;cursor:pointer}
+
+/* CONTACT */
+.contact{padding:6rem 3rem;background:#0057FF;color:#fff}
+.contact-inner{max-width:700px;margin:0 auto;text-align:center}
+.contact-title{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.contact-title span{-webkit-text-stroke:1px #fff;color:transparent}
+.contact-sub{font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:3rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem;text-align:left}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-field{display:flex;flex-direction:column;gap:0.4rem}
+.f-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.f-field input,.f-field select{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s}
+.f-field input::placeholder{color:rgba(255,255,255,0.35)}
+.f-field input:focus,.f-field select:focus{border-color:#fff}
+.f-field select option{background:#0057FF}
+.submit-btn{background:#fff;color:#0057FF;padding:1rem;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s}
+.submit-btn:hover{background:#e8f0ff}
+
+footer{background:#080808;padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.2)}
+.footer-link{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);transition:color 0.2s}
+.footer-link:hover{color:#0057FF}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}.nav-links{display:none}
+  .hero,.ebooks,.formations,.contact{padding:4rem 1.5rem}
+  .quiz-section{padding:4rem 1.5rem}
+  .hero{padding-top:80px}
+  .quiz-intro{grid-template-columns:1fr;gap:2rem}
+  .quiz-options{grid-template-columns:1fr}
+  .ebooks-grid,.formations-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .f-row{grid-template-columns:1fr}
+  .result-ctas{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NW ACADEMY</div>
+  <div class="nav-links">
+    <a href="#quiz">Test</a>
+    <a href="#ebooks">Ebooks</a>
+    <a href="#formations">Formations</a>
+  </div>
+  <a href="index.html" class="nav-back">← NEWORLD</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-tag"><span class="ai-dot"></span>Marketing Digital & Intelligence Artificielle</div>
+  <div class="hero-title">
+    Apprends.<br>
+    <span class="blue">Applique.</span><br>
+    <span class="outline">Domine.</span>
+  </div>
+  <div class="hero-bottom">
+    <div>
+      <p class="hero-desc">NEWORLD Academy forme la prochaine génération de professionnels du digital et de l'IA. Des ebooks et formations concrets pour passer à l'action dès aujourd'hui.</p>
+      <a href="#quiz" class="hero-cta">Trouver ma formation →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><span>IA</span><small>Au cœur de tout</small></div>
+      <div class="h-stat"><span>100%</span><small>Actionnable</small></div>
+      <div class="h-stat"><span>3</span><small>Ebooks dispo</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ SECTION -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-section-inner">
+    <div class="quiz-intro">
+      <div>
+        <div class="section-label" style="color:rgba(255,255,255,0.4);opacity:1">01 — Test d'orientation</div>
+        <div class="quiz-intro-title">Trouve ta<br>formation <span>idéale.</span></div>
+        <p class="quiz-intro-desc">Réponds à 10 questions rapides. Notre IA analyse ton profil et te recommande exactement ce qu'il te faut pour atteindre tes objectifs.</p>
+        <div class="quiz-features">
+          <div class="quiz-feature">10 questions — moins de 3 minutes</div>
+          <div class="quiz-feature">Analyse personnalisée par IA</div>
+          <div class="quiz-feature">Recommandations sur mesure</div>
+          <div class="quiz-feature">100% gratuit</div>
+        </div>
+      </div>
+      <div class="quiz-start-box">
+        <div class="quiz-start-num">10</div>
+        <div class="quiz-start-label">questions</div>
+        <div class="quiz-start-desc">Détermine ton profil et découvre les formations qui correspondent à tes objectifs réels.</div>
+        <button class="btn-quiz" onclick="startQuiz()">Démarrer le test →</button>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div id="quiz-container">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpfill"></div></div>
+      <div class="quiz-q-num" id="qnum">Question 1 / 10</div>
+      <div class="quiz-q-text" id="qtext"></div>
+      <div class="quiz-options" id="qoptions"></div>
+      <button class="btn-quiz-next" id="btnNext" onclick="nextQ()">Question suivante →</button>
+    </div>
+
+    <!-- LOADING -->
+    <div id="quiz-loading">
+      <div class="loading-title">Analyse de ton <span>profil...</span></div>
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="loading-sub">Notre IA prépare tes recommandations personnalisées</div>
+    </div>
+
+    <!-- RÉSULTAT -->
+    <div id="quiz-result">
+      <div class="result-header">
+        <div class="result-profile-tag">✦ Ton profil</div>
+        <div class="result-profile-name" id="rname"></div>
+      </div>
+      <div class="result-analysis" id="ranalysis"></div>
+      <div class="result-recs-title">Nos recommandations pour toi</div>
+      <div class="result-recs" id="rrecs"></div>
+      <div class="result-ctas">
+        <button class="btn-result-main" onclick="document.getElementById('ebooks').scrollIntoView({behavior:'smooth'})">Voir tout le catalogue →</button>
+        <button class="btn-result-retry" onclick="restartQuiz()">Refaire le test</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EBOOKS -->
+<section class="ebooks" id="ebooks">
+  <div class="section-label">02 — Nos ebooks</div>
+  <div class="ebooks-grid">
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-new">Nouveau</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#0057FF,#003db3)">
+        <div class="ebook-cover-text">MAÎTRISER L'IA EN MARKETING</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">Intelligence Artificielle</div>
+        <div class="ebook-title">Maîtriser l'IA en Marketing Digital</div>
+        <p class="ebook-desc">ChatGPT, Claude, Midjourney — comment utiliser l'IA pour créer du contenu, automatiser ta stratégie et exploser sur les réseaux. Guide complet avec cas pratiques.</p>
+        <div class="ebook-modules">
+          <div class="ebook-module">Les meilleurs outils IA en 2025</div>
+          <div class="ebook-module">Créer du contenu x10 plus vite</div>
+          <div class="ebook-module">Automatiser sa stratégie marketing</div>
+          <div class="ebook-module">Monétiser ses compétences IA</div>
+        </div>
+        <div class="ebook-footer">
+          <div class="ebook-price">27€</div>
+          <button class="ebook-btn">Acheter →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-new">Nouveau</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#080808,#1a1a2e)">
+        <div class="ebook-cover-text">EXPLOSER SUR TIKTOK EN 2025</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">Marketing Digital</div>
+        <div class="ebook-title">Exploser sur TikTok & Instagram en 2025</div>
+        <p class="ebook-desc">L'algorithme décrypté, les formats qui marchent, la stratégie de contenu. De 0 à 10K abonnés avec les méthodes testées et validées cette année.</p>
+        <div class="ebook-modules">
+          <div class="ebook-module">Comprendre l'algorithme TikTok</div>
+          <div class="ebook-module">Les formats viraux en 2025</div>
+          <div class="ebook-module">Stratégie de contenu hebdomadaire</div>
+          <div class="ebook-module">Monétiser son audience</div>
+        </div>
+        <div class="ebook-footer">
+          <div class="ebook-price">19€</div>
+          <button class="ebook-btn">Acheter →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-new">Nouveau</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#1a1a2e,#0057FF)">
+        <div class="ebook-cover-text">GAGNER SA VIE AVEC L'IA</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">Monétisation</div>
+        <div class="ebook-title">Gagner sa vie avec l'IA en 2025</div>
+        <p class="ebook-desc">Freelance IA, création d'ebooks, personal branding, agence digitale. Les business modèles qui fonctionnent vraiment avec l'IA aujourd'hui.</p>
+        <div class="ebook-modules">
+          <div class="ebook-module">5 business modèles IA rentables</div>
+          <div class="ebook-module">Trouver ses premiers clients</div>
+          <div class="ebook-module">Créer et vendre ses ebooks</div>
+          <div class="ebook-module">Scaler son activité</div>
+        </div>
+        <div class="ebook-footer">
+          <div class="ebook-price">29€</div>
+          <button class="ebook-btn">Acheter →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-soon">Bientôt</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#f0f0f0,#e0e0e0)">
+        <div class="ebook-cover-text" style="color:#aaa">PERSONAL BRANDING 2025</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">Personal Branding</div>
+        <div class="ebook-title">Personal Branding à l'ère de l'IA</div>
+        <p class="ebook-desc">Construire une image forte, authentique et monétisable sur les réseaux sociaux en 2025 grâce à l'IA.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price soon">Bientôt disponible</div>
+          <button class="ebook-btn disabled">Bientôt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-soon">Bientôt</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#f0f0f0,#e0e0e0)">
+        <div class="ebook-cover-text" style="color:#aaa">CRÉER SON AGENCE DIGITALE</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">Business</div>
+        <div class="ebook-title">Créer son agence digitale de A à Z</div>
+        <p class="ebook-desc">De l'idée au premier client. Lancer une agence marketing digital rentable en partant de zéro.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price soon">Bientôt disponible</div>
+          <button class="ebook-btn disabled">Bientôt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ebook-card">
+      <div class="ebook-badge badge-soon">Bientôt</div>
+      <div class="ebook-cover" style="background:linear-gradient(135deg,#f0f0f0,#e0e0e0)">
+        <div class="ebook-cover-text" style="color:#aaa">YOUTUBE À L'ÈRE DE L'IA</div>
+      </div>
+      <div class="ebook-info">
+        <div class="ebook-tag">YouTube</div>
+        <div class="ebook-title">YouTube à l'ère de l'IA</div>
+        <p class="ebook-desc">Créer, optimiser et monétiser une chaîne YouTube en utilisant l'IA pour la production de contenu.</p>
+        <div class="ebook-footer">
+          <div class="ebook-price soon">Bientôt disponible</div>
+          <button class="ebook-btn disabled">Bientôt</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section class="formations" id="formations">
+  <div class="section-label">03 — Formations complètes</div>
+  <div class="formations-grid">
+
+    <div class="formation-card">
+      <div class="formation-num">01</div>
+      <div class="formation-icon">🤖</div>
+      <div class="formation-title">IA pour le Marketing Digital</div>
+      <p class="formation-desc">Formation complète pour intégrer l'IA dans ta stratégie marketing. Outils, méthodes et cas pratiques pour passer à l'action immédiatement.</p>
+      <div class="formation-modules">
+        <div class="formation-module">Introduction aux outils IA</div>
+        <div class="formation-module">Création de contenu avec l'IA</div>
+        <div class="formation-module">Automatisation marketing</div>
+        <div class="formation-module">Analyse et optimisation</div>
+        <div class="formation-module">Monétisation</div>
+      </div>
+      <div class="formation-footer">
+        <div class="formation-price">197€</div>
+        <span class="formation-btn">S'inscrire →</span>
+      </div>
+    </div>
+
+    <div class="formation-card">
+      <div class="formation-num">02</div>
+      <div class="formation-icon">📱</div>
+      <div class="formation-title">Réseaux Sociaux & Croissance</div>
+      <p class="formation-desc">Stratégie complète pour exploser sur TikTok, Instagram et YouTube. De 0 à une vraie audience engagée et monétisable.</p>
+      <div class="formation-modules">
+        <div class="formation-module">Algorithmes & tendances</div>
+        <div class="formation-module">Stratégie de contenu</div>
+        <div class="formation-module">Community management</div>
+        <div class="formation-module">Monétisation des réseaux</div>
+        <div class="formation-module">Partenariats marques</div>
+      </div>
+      <div class="formation-footer">
+        <div class="formation-price">247€</div>
+        <span class="formation-btn">S'inscrire →</span>
+      </div>
+    </div>
+
+    <div class="formation-card">
+      <div class="formation-num">03</div>
+      <div class="formation-icon">💼</div>
+      <div class="formation-title">Freelance Digital & Agence</div>
+      <p class="formation-desc">Deviens community manager freelance ou lance ton agence. Trouver des clients, les fidéliser et scaler ton activité.</p>
+      <div class="formation-modules">
+        <div class="formation-module">Positionnement & offre</div>
+        <div class="formation-module">Trouver ses premiers clients</div>
+        <div class="formation-module">Tarification & contrats</div>
+        <div class="formation-module">Gestion de projet</div>
+        <div class="formation-module">Développement agence</div>
+      </div>
+      <div class="formation-footer">
+        <div class="formation-price">157€</div>
+        <span class="formation-btn">S'inscrire →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-title">Lance-toi<br><span>maintenant.</span></div>
+    <p class="contact-sub">Une question sur nos formations ou ebooks ? On te répond sous 24h.</p>
+    <div class="contact-form">
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Prénom</label><input type="text" placeholder="Votre prénom"></div>
+        <div class="f-field"><label class="f-label">Email</label><input type="email" placeholder="email@exemple.com"></div>
+      </div>
+      <div class="f-field">
+        <label class="f-label">Ce qui vous intéresse</label>
+        <select>
+          <option>Ebooks IA & Marketing</option>
+          <option>Formation IA pour le Marketing</option>
+          <option>Formation Réseaux Sociaux</option>
+          <option>Formation Freelance & Agence</option>
+          <option>Tout le catalogue</option>
+        </select>
+      </div>
+      <button class="submit-btn">Envoyer →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 NEWORLD Academy</span>
+  <a href="index.html" class="footer-link">← Retour NEWORLD</a>
+</footer>
+
+<script>
+const questions = [
+  {text:"Quel est ton objectif principal ?",opts:["Gagner de l'argent en ligne","Développer mon business","Apprendre le marketing digital","Utiliser l'IA dans mon travail"]},
+  {text:"Tu veux devenir...",opts:["Entrepreneur / ton propre patron","Freelance / indépendant","Salarié mais plus compétent","Créateur de contenu"]},
+  {text:"Ton niveau actuel en marketing digital ?",opts:["Débutant complet","Quelques bases","Intermédiaire","Avancé"]},
+  {text:"Est-ce que tu utilises l'IA au quotidien ?",opts:["Jamais","Parfois","Régulièrement","Oui, c'est au cœur de tout"]},
+  {text:"Sur quel réseau tu veux te développer ?",opts:["TikTok","Instagram","YouTube","Plusieurs réseaux"]},
+  {text:"Combien de temps tu peux consacrer à la formation ?",opts:["30 min par jour","1 heure par jour","2-3 heures par jour","Je suis dispo à fond"]},
+  {text:"Quel type de contenu tu veux créer ?",opts:["Vidéos courtes (Reels, TikTok)","Posts et stories","Vidéos longues (YouTube)","Texte et newsletters"]},
+  {text:"Ton budget formation ?",opts:["Moins de 30€ (ebooks)","Entre 30€ et 100€","Entre 100€ et 300€","Le meilleur peu importe le prix"]},
+  {text:"Qu'est-ce qui te bloque le plus ?",opts:["Je sais pas par où commencer","Manque de temps","Manque de compétences","Je vois pas comment monétiser"]},
+  {text:"Dans 6 mois, tu veux avoir...",opts:["Mes premiers revenus en ligne","Une vraie audience","Un business digital","Maîtrisé l'IA"]}
+];
+
+let cq=0, answers=[], sel=null;
+
+function startQuiz(){
+  document.getElementById('quiz-container').style.display='block';
+  document.querySelector('.quiz-start-box').style.display='none';
+  showQ(0);
+}
+
+function showQ(i){
+  cq=i; sel=null;
+  const q=questions[i];
+  const letters=['A','B','C','D'];
+  document.getElementById('qnum').textContent=`Question ${i+1} / ${questions.length}`;
+  document.getElementById('qtext').textContent=q.text;
+  document.getElementById('qoptions').innerHTML=q.opts.map((o,j)=>
+    `<div class="quiz-option" onclick="selOpt(this,${j})">
+      <div class="quiz-opt-letter">${letters[j]}</div><span>${o}</span>
+    </div>`
+  ).join('');
+  document.getElementById('btnNext').classList.remove('show');
+  document.getElementById('qpfill').style.width=(i/questions.length*100)+'%';
+}
+
+function selOpt(el,i){
+  document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); sel=i;
+  document.getElementById('btnNext').classList.add('show');
+}
+
+function nextQ(){
+  if(sel===null)return;
+  answers.push({q:cq,a:sel});
+  if(cq<questions.length-1){showQ(cq+1);}
+  else{showLoading();}
+}
+
+function showLoading(){
+  document.getElementById('quiz-container').style.display='none';
+  document.getElementById('quiz-loading').style.display='block';
+  setTimeout(showResult,2500);
+}
+
+function showResult(){
+  const r=getResult();
+  document.getElementById('quiz-loading').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  document.getElementById('rname').textContent=r.profile;
+  document.getElementById('ranalysis').textContent=r.analysis;
+  document.getElementById('rrecs').innerHTML=r.recs.map(rec=>
+    `<div class="result-rec">
+      <div class="rec-left">
+        <div class="rec-type">${rec.type}</div>
+        <div class="rec-name">${rec.name}</div>
+        <div class="rec-why">${rec.why}</div>
+      </div>
+      <div class="rec-price">${rec.price}</div>
+    </div>`
+  ).join('');
+}
+
+function getResult(){
+  const level=answers[2]?.a??0;
+  const ai=answers[3]?.a??0;
+  const budget=answers[7]?.a??1;
+  const role=answers[1]?.a??0;
+  const goal=answers[9]?.a??0;
+
+  if(level<=1&&budget===0){
+    return{profile:"Le Débutant Ambitieux",
+    analysis:"Tu pars de zéro mais t'as la bonne mentalité. Les ebooks sont parfaits pour toi — accessibles, concrets, et tu commences immédiatement sans te ruiner.",
+    recs:[
+      {type:"Ebook — N°1",name:"Exploser sur TikTok & Instagram en 2025",why:"Parfait pour débuter et comprendre les réseaux de zéro.",price:"19€"},
+      {type:"Ebook — N°2",name:"Maîtriser l'IA en Marketing Digital",why:"L'IA va accélérer ton apprentissage dès le début.",price:"27€"},
+      {type:"Formation — Prochaine étape",name:"Réseaux Sociaux & Croissance",why:"Quand tu seras prêt pour aller plus loin.",price:"247€"}
+    ]};
+  }
+  if(ai>=2||goal===3){
+    return{profile:"Le Pro de l'IA",
+    analysis:"Tu as compris que l'IA est le levier le plus puissant. Tu veux l'utiliser comme moteur de ton business digital — on a exactement ce qu'il te faut.",
+    recs:[
+      {type:"Formation — N°1",name:"IA pour le Marketing Digital",why:"La formation la plus complète pour maîtriser l'IA.",price:"197€"},
+      {type:"Ebook — N°2",name:"Gagner sa vie avec l'IA en 2025",why:"Les business modèles IA qui marchent aujourd'hui.",price:"29€"},
+      {type:"Ebook — Complément",name:"Maîtriser l'IA en Marketing Digital",why:"La boîte à outils IA complète.",price:"27€"}
+    ]};
+  }
+  if(role===0||role===1||goal===0){
+    return{profile:"L'Entrepreneur Digital",
+    analysis:"Tu veux être ton propre patron et générer des revenus en ligne. On a le parcours exact pour t'y amener — de la stratégie au premier euro encaissé.",
+    recs:[
+      {type:"Formation — N°1",name:"Freelance Digital & Agence",why:"Le guide complet pour tes premiers clients et revenus.",price:"157€"},
+      {type:"Ebook — N°2",name:"Gagner sa vie avec l'IA en 2025",why:"Les business modèles qui marchent avec l'IA.",price:"29€"},
+      {type:"Formation — Complément",name:"Réseaux Sociaux & Croissance",why:"Une audience = des clients.",price:"247€"}
+    ]};
+  }
+  return{profile:"Le Créateur de Contenu",
+  analysis:"Tu veux développer une vraie présence sur les réseaux et monétiser ton contenu. Tu as besoin d'une stratégie claire et des bons outils pour passer au niveau supérieur.",
+  recs:[
+    {type:"Formation — N°1",name:"Réseaux Sociaux & Croissance",why:"La stratégie complète pour exploser sur tous les réseaux.",price:"247€"},
+    {type:"Ebook — N°2",name:"Exploser sur TikTok & Instagram en 2025",why:"Les méthodes qui marchent maintenant.",price:"19€"},
+    {type:"Ebook — Complément",name:"Maîtriser l'IA en Marketing Digital",why:"L'IA va multiplier ta productivité par 10.",price:"27€"}
+  ]};
+}
+
+function restartQuiz(){
+  answers=[];cq=0;sel=null;
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-loading').style.display='none';
+  document.getElementById('quiz-container').style.display='none';
+  document.querySelector('.quiz-start-box').style.display='flex';
+}
+</script>
+</body>
+</html>

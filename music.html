@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWORLD Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#fff;color:#080808;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.06);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:#080808}
+.nav-back{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;transition:color 0.2s}
+.nav-back:hover{color:#080808}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid #080808}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#080808;margin-bottom:1.5rem;position:relative;opacity:0.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,9vw,9rem);font-weight:800;line-height:0.9;letter-spacing:-0.02em;margin-bottom:2rem;position:relative}
+.hero-title .outline{-webkit-text-stroke:2px #080808;color:transparent}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;position:relative}
+.hero-desc{max-width:480px;font-size:0.95rem;line-height:1.85;color:#666}
+.hero-cta{background:#080808;color:#fff;padding:1rem 2.5rem;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;display:inline-block}
+.hero-cta:hover{background:#333}
+
+/* BARRE MUSICALE ANIMÉE */
+.music-bar-section{background:#080808;padding:2rem 3rem;display:flex;align-items:center;gap:0.5rem;overflow:hidden}
+.bar{width:3px;background:#fff;border-radius:2px;animation:barAnim 1.2s ease-in-out infinite}
+.bar:nth-child(2n){animation-delay:0.1s}
+.bar:nth-child(3n){animation-delay:0.2s}
+.bar:nth-child(4n){animation-delay:0.3s}
+.bar:nth-child(5n){animation-delay:0.4s}
+@keyframes barAnim{0%,100%{height:8px}50%{height:40px}}
+
+/* VISION */
+.vision{padding:6rem 3rem;border-bottom:1px solid rgba(0,0,0,0.06)}
+.section-label{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:#080808;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;opacity:0.5}
+.section-label::after{content:'';flex:1;height:0.5px;background:rgba(0,0,0,0.1)}
+.vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.vision-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:2rem}
+.vision-title .outline{-webkit-text-stroke:1.5px #080808;color:transparent}
+.vision-text{font-size:0.9rem;line-height:1.9;color:#666;margin-bottom:1.5rem}
+.vision-quote{border-left:3px solid #080808;padding-left:1.5rem;margin:2rem 0;font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;line-height:1.5;color:#080808}
+.vision-bars{display:flex;flex-direction:column;gap:0}
+.v-bar-row{display:flex;align-items:center;gap:1.5rem;padding:1.25rem 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.v-bar-label{font-size:0.78rem;font-weight:500;min-width:140px;letter-spacing:0.05em}
+.v-bar-track{flex:1;height:2px;background:rgba(0,0,0,0.08);position:relative}
+.v-bar-fill{height:100%;background:#080808;transition:width 0.8s ease}
+
+/* 3 VOIES */
+.voies{padding:6rem 3rem;background:#f8f8f8;border-bottom:1px solid rgba(0,0,0,0.06)}
+.voies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:rgba(0,0,0,0.06);margin-top:3rem}
+.voie-card{background:#f8f8f8;padding:3rem 2.5rem;transition:background 0.25s;position:relative;overflow:hidden}
+.voie-card:hover{background:#fff}
+.voie-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(0,0,0,0.06);line-height:1;margin-bottom:1.5rem}
+.voie-icon{font-size:2rem;margin-bottom:1rem}
+.voie-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:1rem;line-height:1.2}
+.voie-desc{font-size:0.82rem;line-height:1.85;color:#666;margin-bottom:1.5rem}
+.voie-tag{display:inline-block;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;background:#080808;color:#fff;padding:0.3rem 0.8rem}
+
+/* ACCOMPAGNEMENT */
+.accomp{padding:6rem 3rem;border-bottom:1px solid rgba(0,0,0,0.06)}
+.accomp-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:3rem;position:relative}
+.accomp-steps::before{content:'';position:absolute;top:2rem;left:10%;right:10%;height:1px;background:rgba(0,0,0,0.1);z-index:0}
+.accomp-step{text-align:center;padding:0 1rem;position:relative;z-index:1}
+.accomp-dot{width:48px;height:48px;background:#080808;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:0.1em}
+.accomp-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;margin-bottom:0.5rem}
+.accomp-desc{font-size:0.75rem;line-height:1.7;color:#888}
+
+/* CONTACT */
+.contact{padding:6rem 3rem;background:#080808;color:#fff}
+.contact-inner{max-width:700px;margin:0 auto;text-align:center}
+.contact-title{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1}
+.contact-title .outline{-webkit-text-stroke:1px #fff;color:transparent}
+.contact-sub{font-size:0.9rem;color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:3rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem;text-align:left}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-field{display:flex;flex-direction:column;gap:0.4rem}
+.f-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.f-field input,.f-field select,.f-field textarea{background:#111;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;resize:none}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{border-color:#fff}
+.f-field select option{background:#111}
+.submit-btn{background:#fff;color:#080808;padding:1rem;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;margin-top:0.5rem}
+.submit-btn:hover{background:#ddd}
+
+footer{background:#050505;padding:2rem 3rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.2)}
+.footer-link{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);transition:color 0.2s}
+.footer-link:hover{color:#fff}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .hero,.vision,.voies,.accomp,.contact{padding:4rem 1.5rem}
+  .hero{padding-top:80px}
+  .vision-grid{grid-template-columns:1fr;gap:3rem}
+  .voies-grid{grid-template-columns:1fr}
+  .accomp-steps{grid-template-columns:1fr 1fr;gap:2rem}
+  .accomp-steps::before{display:none}
+  .f-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NW MUSIC</div>
+  <a href="index.html" class="nav-back">← Retour NEWORLD</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-lines"></div>
+  <div class="hero-eyebrow">NEWORLD Music — Label & Développement artiste</div>
+  <div class="hero-title">
+    Du début.<br>
+    <span class="outline">Jusqu'au</span><br>
+    sommet.
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">NEWORLD Music accompagne les artistes de leur premier titre jusqu'aux grandes scènes. Indépendant, signé chez nous ou en maison de disque — nous construisons votre carrière selon votre vision.</p>
+    <a href="#contact" class="hero-cta">Soumettre mon projet →</a>
+  </div>
+</section>
+
+<div class="music-bar-section">
+  <div class="bar" style="height:8px"></div>
+  <div class="bar" style="height:20px"></div>
+  <div class="bar" style="height:35px"></div>
+  <div class="bar" style="height:15px"></div>
+  <div class="bar" style="height:40px"></div>
+  <div class="bar" style="height:25px"></div>
+  <div class="bar" style="height:10px"></div>
+  <div class="bar" style="height:30px"></div>
+  <div class="bar" style="height:20px"></div>
+  <div class="bar" style="height:38px"></div>
+  <div class="bar" style="height:12px"></div>
+  <div class="bar" style="height:28px"></div>
+  <div class="bar" style="height:35px"></div>
+  <div class="bar" style="height:18px"></div>
+  <div class="bar" style="height:40px"></div>
+  <div class="bar" style="height:22px"></div>
+  <div class="bar" style="height:8px"></div>
+  <div class="bar" style="height:32px"></div>
+  <div class="bar" style="height:15px"></div>
+  <div class="bar" style="height:40px"></div>
+</div>
+
+<section class="vision">
+  <div class="vision-grid">
+    <div>
+      <div class="section-label">01 — Notre vision</div>
+      <div class="vision-title">Votre<br>carrière.<br><span class="outline">Vos règles.</span></div>
+      <p class="vision-text">Chez NEWORLD Music, on ne vous impose rien. Notre rôle c'est de vous donner les outils, le réseau et l'expertise pour aller là où vous voulez aller.</p>
+      <div class="vision-quote">"Indépendant, signé chez nous ou en maison de disque — le choix vous appartient."</div>
+      <p class="vision-text">Nous accompagnons les artistes qui veulent rester indépendants, ceux qui souhaitent signer chez NEWORLD et ceux qui visent une major. Dans tous les cas, on est là du début à la fin.</p>
+    </div>
+    <div class="vision-bars">
+      <div class="v-bar-row">
+        <span class="v-bar-label">Développement artiste</span>
+        <div class="v-bar-track"><div class="v-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="v-bar-row">
+        <span class="v-bar-label">Stratégie digitale</span>
+        <div class="v-bar-track"><div class="v-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="v-bar-row">
+        <span class="v-bar-label">Production musicale</span>
+        <div class="v-bar-track"><div class="v-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="v-bar-row">
+        <span class="v-bar-label">Booking & Lives</span>
+        <div class="v-bar-track"><div class="v-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="v-bar-row">
+        <span class="v-bar-label">Placement en label</span>
+        <div class="v-bar-track"><div class="v-bar-fill" style="width:70%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="voies">
+  <div class="section-label">02 — Trois voies, une ambition</div>
+  <div class="voies-grid">
+
+    <div class="voie-card">
+      <div class="voie-num">01</div>
+      <div class="voie-icon">🎙️</div>
+      <div class="voie-title">Artiste indépendant</div>
+      <p class="voie-desc">Vous voulez garder le contrôle total sur votre musique et vos droits. On vous accompagne stratégiquement sans vous lier à un label. Distribution, promo, réseaux — on s'occupe de tout pendant que vous créez.</p>
+      <span class="voie-tag">Liberté totale</span>
+    </div>
+
+    <div class="voie-card">
+      <div class="voie-num">02</div>
+      <div class="voie-icon">🏷️</div>
+      <div class="voie-title">Signé NEWORLD</div>
+      <p class="voie-desc">Vous intégrez la famille NEWORLD Music. Contrat label, investissement dans votre projet, production, marketing et développement de carrière complet. On mise sur vous et on grandit ensemble.</p>
+      <span class="voie-tag">Accompagnement total</span>
+    </div>
+
+    <div class="voie-card">
+      <div class="voie-num">03</div>
+      <div class="voie-icon">🏢</div>
+      <div class="voie-title">Vers une maison de disque</div>
+      <p class="voie-desc">Votre objectif c'est une major ou un grand label ? On vous prépare, on vous coache et on vous ouvre les bonnes portes. Notre réseau dans l'industrie est votre meilleur atout pour franchir ce cap.</p>
+      <span class="voie-tag">Tremplin major</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="accomp">
+  <div class="section-label">03 — Notre accompagnement</div>
+  <div class="accomp-steps">
+    <div class="accomp-step">
+      <div class="accomp-dot">01</div>
+      <div class="accomp-title">Écoute & Analyse</div>
+      <p class="accomp-desc">On écoute votre musique et on analyse votre potentiel artistique.</p>
+    </div>
+    <div class="accomp-step">
+      <div class="accomp-dot">02</div>
+      <div class="accomp-title">Stratégie</div>
+      <p class="accomp-desc">On construit votre plan de carrière selon votre objectif.</p>
+    </div>
+    <div class="accomp-step">
+      <div class="accomp-dot">03</div>
+      <div class="accomp-title">Production</div>
+      <p class="accomp-desc">Studio, clips, visuels — on produit votre univers.</p>
+    </div>
+    <div class="accomp-step">
+      <div class="accomp-dot">04</div>
+      <div class="accomp-title">Lancement</div>
+      <p class="accomp-desc">Sortie de projet, promo digitale et événements live.</p>
+    </div>
+    <div class="accomp-step">
+      <div class="accomp-dot">05</div>
+      <div class="accomp-title">Croissance</div>
+      <p class="accomp-desc">Suivi continu, développement d'audience et ouverture vers les majors si c'est votre objectif.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-title">Soumettre<br><span class="outline">mon projet.</span></div>
+    <p class="contact-sub">Artiste en début de carrière ou déjà actif — on écoute tout le monde. Envoyez-nous votre projet.</p>
+    <div class="contact-form">
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Nom / Pseudo artiste</label><input type="text" placeholder="Votre nom d'artiste"></div>
+        <div class="f-field"><label class="f-label">Email</label><input type="email" placeholder="email@exemple.com"></div>
+      </div>
+      <div class="f-row">
+        <div class="f-field">
+          <label class="f-label">Style musical</label>
+          <select>
+            <option>Rap / Trap</option>
+            <option>R&B / Soul</option>
+            <option>Afro / Dancehall</option>
+            <option>Pop</option>
+            <option>Drill</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label class="f-label">Votre objectif</label>
+          <select>
+            <option>Rester indépendant</option>
+            <option>Signer chez NEWORLD</option>
+            <option>Viser une maison de disque</option>
+            <option>Je ne sais pas encore</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-field"><label class="f-label">Lien vers votre musique</label><input type="text" placeholder="YouTube, Spotify, SoundCloud..."></div>
+      <div class="f-field"><label class="f-label">Parlez-nous de vous</label><textarea rows="4" placeholder="Votre parcours, vos influences, vos ambitions..."></textarea></div>
+      <button class="submit-btn">Envoyer mon projet →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 NEWORLD Music</span>
+  <a href="index.html" class="footer-link">← Retour au hub NEWORLD</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L'Hayawane D'Wall Street — NEWORLD Trading</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d0d0d;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,13,13,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,200,81,0.1);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:#00C851}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);transition:color 0.2s}
+.nav-links a:hover{color:#00C851}
+.nav-back{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);transition:color 0.2s}
+.nav-back:hover{color:#00C851}
+.market-ticker{background:#060606;border-bottom:1px solid rgba(0,200,81,0.08);padding:0.6rem 0;overflow:hidden;white-space:nowrap}
+.market-inner{display:inline-flex;gap:3rem;animation:tick 30s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.market-item{font-family:'Share Tech Mono',monospace;font-size:0.75rem;display:inline-flex;align-items:center;gap:0.5rem}
+.up{color:#00C851}.down{color:#FF4444}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(0,200,81,0.08)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,81,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,81,0.02) 1px,transparent 1px);background-size:40px 40px}
+.hero-glow{position:absolute;right:0;top:0;width:50%;height:100%;background:radial-gradient(ellipse at 80% 50%,rgba(0,200,81,0.04) 0%,transparent 70%)}
+.live-badge{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:#00C851;margin-bottom:1.5rem}
+.live-dot{width:6px;height:6px;background:#00C851;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,8rem);font-weight:800;line-height:0.9;letter-spacing:-0.02em;margin-bottom:1rem}
+.hero-title .green{color:#00C851}
+.hero-title .red{color:#FF4444}
+.hero-handle{font-family:'Share Tech Mono',monospace;font-size:0.9rem;color:rgba(255,255,255,0.2);margin-bottom:2rem}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-desc{max-width:500px;font-size:0.95rem;line-height:1.85;color:rgba(255,255,255,0.45)}
+.hero-cta{background:#00C851;color:#0d0d0d;padding:1rem 2.5rem;font-size:0.78rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;display:inline-block;margin-top:1.5rem}
+.hero-cta:hover{background:#fff}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid rgba(0,200,81,0.08)}
+.stat-item{padding:2rem 3rem;border-right:1px solid rgba(0,200,81,0.08)}
+.stat-item:last-child{border-right:none}
+.stat-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:0.5rem}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:0.05em;line-height:1}
+.stat-value.green{color:#00C851}
+.stat-sub{font-size:0.68rem;color:rgba(255,255,255,0.2);margin-top:0.25rem;font-family:'Share Tech Mono',monospace}
+.chart-section{border-bottom:1px solid rgba(0,200,81,0.08)}
+.chart-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3rem;background:#060606}
+.chart-title-text{font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:#00C851}
+.chart-subtitle{font-size:0.72rem;color:rgba(255,255,255,0.2);font-family:'Share Tech Mono',monospace}
+section{padding:6rem 3rem;border-bottom:1px solid rgba(0,200,81,0.08)}
+.section-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#00C851;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;opacity:0.6}
+.section-label::after{content:'';flex:1;height:0.5px;background:rgba(0,200,81,0.1)}
+.profil-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.profil-quote{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;line-height:1.5;border-left:3px solid #00C851;padding-left:1.5rem;margin-bottom:2rem}
+.profil-text{font-size:0.88rem;line-height:1.9;color:rgba(255,255,255,0.45);margin-bottom:1.5rem}
+.tiktok-btn{display:inline-flex;align-items:center;gap:0.75rem;background:#111;border:1px solid rgba(0,200,81,0.2);padding:0.85rem 1.5rem;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#fff;transition:all 0.25s}
+.tiktok-btn:hover{border-color:#00C851}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.info-key{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.info-val{font-size:0.88rem;font-weight:500}
+.info-val.green{color:#00C851}
+.videos-section{background:#060606}
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.video-card{background:#0d0d0d;border:1px solid rgba(0,200,81,0.08);overflow:hidden;transition:all 0.25s;cursor:pointer}
+.video-card:hover{border-color:rgba(0,200,81,0.3);transform:translateY(-3px)}
+.video-thumb{height:160px;background:linear-gradient(135deg,#111,#1a1a1a);display:flex;align-items:center;justify-content:center;position:relative}
+.video-thumb-bg{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(0,200,81,0.06)}
+.play-btn{position:absolute;width:44px;height:44px;background:rgba(0,200,81,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.play-btn::after{content:'';border-left:14px solid #0d0d0d;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.video-info{padding:1rem}
+.video-platform{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:#00C851;margin-bottom:0.4rem}
+.video-title{font-size:0.82rem;font-weight:500;line-height:1.4;margin-bottom:0.5rem}
+.video-meta{font-size:0.7rem;color:rgba(255,255,255,0.2);font-family:'Share Tech Mono',monospace}
+.videos-cta{text-align:center;margin-top:2.5rem}
+.videos-link{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#00C851;border-bottom:1px solid rgba(0,200,81,0.25);padding-bottom:0.25rem}
+.sphere-section{background:#080808}
+.sphere-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.sphere-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:800;line-height:1;letter-spacing:-0.01em;margin-bottom:1rem}
+.sphere-title span{color:#FF4444}
+.sphere-desc{font-size:0.85rem;line-height:1.85;color:rgba(255,255,255,0.4);margin-bottom:1.5rem}
+.sphere-cta{display:inline-flex;align-items:center;gap:0.5rem;background:#FF4444;color:#fff;padding:0.85rem 2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s}
+.sphere-cta:hover{background:#fff;color:#0d0d0d}
+.counter-box{background:#0d0d0d;border:1px solid rgba(255,68,68,0.2);padding:2rem}
+.counter-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:0.75rem}
+.counter-nums{display:flex;align-items:baseline;gap:0.75rem;margin-bottom:1rem}
+.counter-current{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:#FF4444;line-height:1}
+.counter-sep{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:rgba(255,255,255,0.1)}
+.counter-total{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(255,255,255,0.1)}
+.progress-track{height:4px;background:rgba(255,255,255,0.04);margin-bottom:0.75rem;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#FF4444,#00C851);transition:width 1.5s ease}
+.counter-sub{font-size:0.65rem;color:rgba(255,255,255,0.15);font-family:'Share Tech Mono',monospace}
+.telegram-section{background:#060606}
+.telegram-inner{max-width:700px;margin:0 auto;text-align:center}
+.telegram-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:1rem}
+.telegram-title span{color:#00C851}
+.telegram-desc{font-size:0.9rem;color:rgba(255,255,255,0.35);line-height:1.8;margin-bottom:3rem}
+.tg-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3rem;text-align:left}
+.tg-card{background:#0d0d0d;border:1px solid rgba(0,200,81,0.1);padding:1.5rem;transition:border-color 0.25s}
+.tg-card:hover{border-color:rgba(0,200,81,0.3)}
+.tg-card-icon{font-size:1.5rem;margin-bottom:0.75rem}
+.tg-card-title{font-size:0.85rem;font-weight:500;margin-bottom:0.4rem}
+.tg-card-desc{font-size:0.75rem;color:rgba(255,255,255,0.3);line-height:1.7;margin-bottom:1rem}
+.tg-card-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#00C851;border-bottom:1px solid rgba(0,200,81,0.25);padding-bottom:0.15rem}
+.form-wrap{display:flex;flex-direction:column;gap:1rem;text-align:left}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-field{display:flex;flex-direction:column;gap:0.4rem}
+.f-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.2)}
+.f-field input,.f-field select{background:#111;border:1px solid rgba(0,200,81,0.08);color:#fff;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s}
+.f-field input:focus,.f-field select:focus{border-color:#00C851}
+.f-field select option{background:#111}
+.submit-btn{background:#00C851;color:#0d0d0d;padding:1rem;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s}
+.submit-btn:hover{background:#fff}
+footer{background:#050505;padding:2rem 3rem;border-top:1px solid rgba(0,200,81,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.15)}
+.footer-link{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);transition:color 0.2s}
+.footer-link:hover{color:#00C851}
+@media(max-width:900px){
+  nav{padding:0 1.5rem}.nav-links{display:none}
+  .hero{padding:5rem 1.5rem 3rem}
+  section{padding:4rem 1.5rem}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-item{padding:1.25rem 1.5rem}
+  .chart-header{padding:1rem 1.5rem}
+  .profil-grid,.sphere-grid,.tg-cards{grid-template-columns:1fr;gap:2.5rem}
+  .videos-grid{grid-template-columns:1fr}
+  .f-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="market-ticker">
+  <div class="market-inner">
+    <span class="market-item">BTC/USD <span class="up">▲ +2.4%</span></span>
+    <span class="market-item">ETH/USD <span class="up">▲ +1.8%</span></span>
+    <span class="market-item">S&P500 <span class="down">▼ -0.3%</span></span>
+    <span class="market-item">EUR/USD <span class="up">▲ +0.5%</span></span>
+    <span class="market-item">GOLD <span class="up">▲ +0.9%</span></span>
+    <span class="market-item">NASDAQ <span class="down">▼ -0.8%</span></span>
+    <span class="market-item">SOL/USD <span class="up">▲ +4.2%</span></span>
+    <span class="market-item">CAC40 <span class="up">▲ +0.6%</span></span>
+    <span class="market-item">BTC/USD <span class="up">▲ +2.4%</span></span>
+    <span class="market-item">ETH/USD <span class="up">▲ +1.8%</span></span>
+    <span class="market-item">S&P500 <span class="down">▼ -0.3%</span></span>
+    <span class="market-item">EUR/USD <span class="up">▲ +0.5%</span></span>
+    <span class="market-item">GOLD <span class="up">▲ +0.9%</span></span>
+    <span class="market-item">NASDAQ <span class="down">▼ -0.8%</span></span>
+    <span class="market-item">SOL/USD <span class="up">▲ +4.2%</span></span>
+    <span class="market-item">CAC40 <span class="up">▲ +0.6%</span></span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">NW TRADING</div>
+  <div class="nav-links">
+    <a href="#profil">Profil</a>
+    <a href="#videos">Contenu</a>
+    <a href="#telegram">Rejoindre</a>
+  </div>
+  <a href="index.html" class="nav-back">← NEWORLD</a>
+</nav>
+
+<section class="hero" style="padding-top:120px">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="live-badge"><span class="live-dot"></span>NEWORLD Trading</div>
+  <div class="hero-title">L'Hayawane<br><span class="green">D'Wall</span> <span class="red">Street</span></div>
+  <div class="hero-handle">@lhayawane • TikTok</div>
+  <div class="hero-bottom">
+    <div>
+      <p class="hero-desc">Analyses en direct. Apprentissage continu. Mentalité de gagnant. Le son du marché — brut, sincère et sans filtre.</p>
+      <a href="https://tiktok.com/@lhayawane" target="_blank" class="hero-cta">Suivre sur TikTok →</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-label">Followers TikTok</div>
+    <div class="stat-value green">8 112</div>
+    <div class="stat-sub">@lhayawane</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">J'aime TikTok</div>
+    <div class="stat-value">557K</div>
+    <div class="stat-sub">Total likes</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Format</div>
+    <div class="stat-value green" style="font-size:1.8rem">LIVE</div>
+    <div class="stat-sub">Analyses en direct</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Canal Telegram</div>
+    <div class="stat-value green" id="telegramCount">—</div>
+    <div class="stat-sub">Membres</div>
+  </div>
+</div>
+
+<div class="chart-section">
+  <div class="chart-header">
+    <div class="chart-title-text">// BTC/USDT — Graphique temps réel</div>
+    <div class="chart-subtitle">Powered by TradingView</div>
+  </div>
+  <div class="tradingview-widget-container">
+    <div id="tradingview_btc"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+    new TradingView.widget({
+      "width":"100%","height":420,
+      "symbol":"BINANCE:BTCUSDT",
+      "interval":"60","timezone":"Europe/Paris",
+      "theme":"dark","style":"1","locale":"fr",
+      "toolbar_bg":"#0d0d0d","enable_publishing":false,
+      "hide_top_toolbar":false,"save_image":false,
+      "backgroundColor":"#0d0d0d",
+      "gridColor":"rgba(0,200,81,0.04)",
+      "container_id":"tradingview_btc"
+    });
+    </script>
+  </div>
+</div>
+
+<section id="profil">
+  <div class="section-label">01 — Le personnage</div>
+  <div class="profil-grid">
+    <div>
+      <div class="profil-quote">"Les dés sont lancés. Jouons le rôle du croupier pour braquer les marchés."</div>
+      <p class="profil-text">De base discret sur les réseaux, L'Hayawane D'Wall Street s'est lancé avec un objectif clair. Pas de promesses en l'air — des analyses, du concret, et une communauté qui se construit brique par brique.</p>
+      <p class="profil-text">557K likes. 8K followers. Et ça ne fait que commencer.</p>
+      <a href="https://tiktok.com/@lhayawane" target="_blank" class="tiktok-btn">↗ Suivre @lhayawane sur TikTok</a>
+    </div>
+    <div>
+      <div class="info-row"><span class="info-key">Plateforme</span><span class="info-val">TikTok</span></div>
+      <div class="info-row"><span class="info-key">Spécialité</span><span class="info-val">Trading & Marchés</span></div>
+      <div class="info-row"><span class="info-key">Format</span><span class="info-val green">Lives & Analyses</span></div>
+      <div class="info-row"><span class="info-key">Followers</span><span class="info-val green">8 112</span></div>
+      <div class="info-row"><span class="info-key">J'aime</span><span class="info-val">557 200</span></div>
+      <div class="info-row"><span class="info-key">Twitch</span><span class="info-val">twitch.tv/lhayawanee</span></div>
+      <div class="info-row"><span class="info-key">Signé</span><span class="info-val green">NEWORLD Trading</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="videos" class="videos-section">
+  <div class="section-label">02 — Dernier contenu</div>
+  <div class="videos-grid">
+    <div class="video-card" onclick="window.open('https://tiktok.com/@lhayawane','_blank')">
+      <div class="video-thumb"><div class="video-thumb-bg">NW</div><div class="play-btn"></div></div>
+      <div class="video-info">
+        <div class="video-platform">TikTok Live</div>
+        <div class="video-title">Analyse BTC en direct — Les niveaux clés à surveiller</div>
+        <div class="video-meta">@lhayawane • En direct</div>
+      </div>
+    </div>
+    <div class="video-card" onclick="window.open('https://tiktok.com/@lhayawane','_blank')">
+      <div class="video-thumb"><div class="video-thumb-bg">NW</div><div class="play-btn"></div></div>
+      <div class="video-info">
+        <div class="video-platform">TikTok</div>
+        <div class="video-title">Comment j'analyse un marché en 5 minutes</div>
+        <div class="video-meta">@lhayawane • Récent</div>
+      </div>
+    </div>
+    <div class="video-card" onclick="window.open('https://tiktok.com/@lhayawane','_blank')">
+      <div class="video-thumb"><div class="video-thumb-bg">NW</div><div class="play-btn"></div></div>
+      <div class="video-info">
+        <div class="video-platform">TikTok</div>
+        <div class="video-title">La mentalité D'Wall Street — Pourquoi 90% perdent</div>
+        <div class="video-meta">@lhayawane • Récent</div>
+      </div>
+    </div>
+  </div>
+  <div class="videos-cta">
+    <a href="https://tiktok.com/@lhayawane" target="_blank" class="videos-link">Voir tout le contenu sur TikTok →</a>
+  </div>
+</section>
+
+<section id="sphere" class="sphere-section">
+  <div class="section-label">03 — La Sphère</div>
+  <div class="sphere-grid">
+    <div>
+      <div class="sphere-title">Un projet.<br><span>1000 membres.</span><br>Un avantage.</div>
+      <p class="sphere-desc">Quand 1000 membres rejoignent le canal VIP Telegram, la Sphère se met en place. Les premiers bénéficient d'un avantage définitif que les autres n'auront jamais.</p>
+      <a href="#telegram" class="sphere-cta">Rejoindre maintenant →</a>
+    </div>
+    <div class="counter-box">
+      <div class="counter-label">Membres vers le lancement</div>
+      <div class="counter-nums">
+        <div class="counter-current" id="memberCount">0</div>
+        <div class="counter-sep">/</div>
+        <div class="counter-total">1000</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="counter-sub">// Connexion Telegram en cours</div>
+    </div>
+  </div>
+</section>
+
+<section id="telegram" class="telegram-section">
+  <div class="telegram-inner">
+    <div class="section-label">04 — Rejoindre</div>
+    <div class="telegram-title">Monte dans<br>le <span>train.</span></div>
+    <p class="telegram-desc">Deux façons de rejoindre la communauté L'Hayawane D'Wall Street.</p>
+    <div class="tg-cards">
+      <div class="tg-card">
+        <div class="tg-card-icon">📢</div>
+        <div class="tg-card-title">Canal principal</div>
+        <p class="tg-card-desc">Analyses, actualités et contenu gratuit. Ouvert à tous.</p>
+        <a href="https://t.me/lhayawane" target="_blank" class="tg-card-btn">Rejoindre →</a>
+      </div>
+      <div class="tg-card">
+        <div class="tg-card-icon">🔒</div>
+        <div class="tg-card-title">Canal VIP</div>
+        <p class="tg-card-desc">Contenu exclusif et accès à la Sphère. Places limitées.</p>
+        <a href="#form" class="tg-card-btn">Réserver ma place →</a>
+      </div>
+    </div>
+    <div class="form-wrap" id="form">
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Prénom</label><input type="text" placeholder="Votre prénom"></div>
+        <div class="f-field"><label class="f-label">Email</label><input type="email" placeholder="email@exemple.com"></div>
+      </div>
+      <div class="f-field">
+        <label class="f-label">Niveau en trading</label>
+        <select>
+          <option>Débutant — Je commence</option>
+          <option>Intermédiaire — J'ai des bases</option>
+          <option>Confirmé — Je trade déjà</option>
+          <option>Avancé — Je cherche du niveau supérieur</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <label class="f-label">Comment vous avez entendu parler de nous ?</label>
+        <select>
+          <option>TikTok @lhayawane</option>
+          <option>NEWORLD</option>
+          <option>Bouche à oreille</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <button class="submit-btn">Réserver ma place →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 NEWORLD Trading — L'Hayawane D'Wall Street</span>
+  <a href="index.html" class="footer-link">← Retour NEWORLD</a>
+</footer>
+
+<script>
+const targetCount = 47;
+let current = 0;
+const el = document.getElementById('memberCount');
+const fill = document.getElementById('progressFill');
+function animateCounter(){
+  if(current < targetCount){
+    current++;
+    el.textContent = current;
+    fill.style.width = (current/1000*100)+'%';
+    setTimeout(animateCounter,40);
+  }
+}
+window.addEventListener('load',()=>setTimeout(animateCounter,800));
+async function fetchMembers(){
+  try{
+    const res = await fetch('/members');
+    const data = await res.json();
+    if(data.count) document.getElementById('telegramCount').textContent = data.count;
+  }catch(e){}
+}
+fetchMembers();
+setInterval(fetchMembers,30000);
+</script>
+</body>
+</html>

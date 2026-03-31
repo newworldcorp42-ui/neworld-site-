@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWORLD Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232,255,0,0.08);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:#E8FF00}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);transition:color 0.2s}
+.nav-links a:hover{color:#E8FF00}
+.nav-back{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.25);transition:color 0.2s}
+.nav-back:hover{color:#E8FF00}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(232,255,0,0.06)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,255,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(232,255,0,0.02) 1px,transparent 1px);background-size:50px 50px}
+.hero-glow{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(232,255,0,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#E8FF00;margin-bottom:1.5rem;opacity:0.7}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(4rem,11vw,11rem);font-weight:800;line-height:0.88;letter-spacing:-0.02em;margin-bottom:2rem}
+.hero-title .yellow{color:#E8FF00}
+.hero-title .outline{-webkit-text-stroke:1px rgba(255,255,255,0.2);color:transparent}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-desc{max-width:420px;font-size:0.95rem;line-height:1.85;color:rgba(255,255,255,0.4)}
+
+/* SECTION LABEL */
+.section-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#E8FF00;margin-bottom:3rem;display:flex;align-items:center;gap:1rem;opacity:0.6}
+.section-label::after{content:'';flex:1;height:0.5px;background:rgba(232,255,0,0.1)}
+
+/* PRODUITS WRAPPER — position relative pour le blocage */
+.products{padding:6rem 3rem;border-bottom:1px solid rgba(232,255,0,0.06);position:relative;overflow:hidden}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;filter:blur(8px);pointer-events:none;user-select:none}
+.product-card{background:#111;overflow:hidden;border:1px solid rgba(232,255,0,0.06);position:relative}
+.product-badge{position:absolute;top:1rem;left:1rem;z-index:2;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.25rem 0.7rem;font-weight:600}
+.badge-new{background:#E8FF00;color:#0a0a0a}
+.badge-limited{background:#FF4444;color:#fff}
+.badge-soon{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)}
+.product-img{height:260px;background:linear-gradient(135deg,#141414,#1c1c1c);display:flex;align-items:center;justify-content:center}
+.product-img-text{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:0.1em;color:rgba(232,255,0,0.05)}
+.product-info{padding:1.25rem}
+.product-name{font-size:0.9rem;font-weight:500;margin-bottom:0.3rem}
+.product-desc{font-size:0.75rem;color:rgba(255,255,255,0.3);line-height:1.6;margin-bottom:1rem}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:#E8FF00}
+
+/* ÉCRAN DE BLOCAGE — sur les produits uniquement */
+.products-lock{position:absolute;inset:0;z-index:10;background:rgba(10,10,10,0.88);backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.lock-label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(232,255,0,0.5);margin-bottom:2rem}
+.lock-title{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,3rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:2.5rem}
+.lock-title span{color:#E8FF00}
+.lock-timer{display:flex;align-items:flex-end;gap:0.4rem;margin-bottom:2.5rem}
+.lock-block{text-align:center}
+.lock-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:1;letter-spacing:0.05em}
+.lock-num.hidden{color:rgba(255,255,255,0.12)}
+.lock-num.visible{color:#E8FF00}
+.lock-unit{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;margin-top:0.4rem}
+.lock-unit.hidden{color:rgba(255,255,255,0.15)}
+.lock-unit.visible{color:rgba(232,255,0,0.5)}
+.lock-sep{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);padding-bottom:1.2rem}
+.lock-sep.hidden{color:rgba(255,255,255,0.08)}
+.lock-sep.visible{color:rgba(232,255,0,0.3)}
+.lock-form{display:flex;gap:0;max-width:380px;width:100%;margin-bottom:1rem}
+.lock-input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(232,255,0,0.15);border-right:none;color:#fff;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none}
+.lock-input:focus{border-color:#E8FF00}
+.lock-btn{background:#E8FF00;color:#0a0a0a;padding:0.85rem 1.5rem;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap}
+.lock-note{font-size:0.65rem;color:rgba(255,255,255,0.15);letter-spacing:0.08em}
+
+/* POURQUOI */
+.why{padding:6rem 3rem;background:#060606;border-bottom:1px solid rgba(232,255,0,0.06)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.why-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:2rem}
+.why-title span{color:#E8FF00}
+.why-text{font-size:0.88rem;line-height:1.9;color:rgba(255,255,255,0.4);margin-bottom:2rem}
+.why-points{display:flex;flex-direction:column;gap:0}
+.why-point{display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.why-point:first-child{padding-top:0}
+.why-icon{font-size:1.2rem;min-width:2rem}
+.why-point-title{font-size:0.88rem;font-weight:500;margin-bottom:0.3rem}
+.why-point-text{font-size:0.78rem;line-height:1.75;color:rgba(255,255,255,0.35)}
+.why-visual{display:flex;flex-direction:column;gap:1rem}
+.why-box{background:#0a0a0a;border:1px solid rgba(232,255,0,0.1);padding:2rem;transition:border-color 0.25s}
+.why-box:hover{border-color:rgba(232,255,0,0.3)}
+.why-box-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#E8FF00;letter-spacing:0.05em;line-height:1}
+.why-box-label{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:0.3rem}
+
+/* NEWSLETTER */
+.newsletter{padding:6rem 3rem;text-align:center}
+.newsletter-inner{max-width:600px;margin:0 auto}
+.newsletter-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:1rem}
+.newsletter-title span{color:#E8FF00}
+.newsletter-desc{font-size:0.9rem;color:rgba(255,255,255,0.35);line-height:1.8;margin-bottom:2.5rem}
+.newsletter-form{display:flex;gap:0;max-width:480px;margin:0 auto}
+.newsletter-input{flex:1;background:#111;border:1px solid rgba(232,255,0,0.15);border-right:none;color:#fff;padding:1rem 1.25rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s}
+.newsletter-input:focus{border-color:#E8FF00}
+.newsletter-btn{background:#E8FF00;color:#0a0a0a;padding:1rem 2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap}
+.newsletter-btn:hover{background:#fff}
+.newsletter-note{font-size:0.72rem;color:rgba(255,255,255,0.2);margin-top:1rem}
+
+footer{background:#050505;padding:2rem 3rem;border-top:1px solid rgba(232,255,0,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.15)}
+.footer-link{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);transition:color 0.2s}
+.footer-link:hover{color:#E8FF00}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}.nav-links{display:none}
+  .hero,.products,.why,.newsletter{padding:4rem 1.5rem}
+  .hero{padding-top:80px}
+  .products-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr;gap:3rem}
+  .newsletter-form{flex-direction:column}
+  .newsletter-input{border-right:1px solid rgba(232,255,0,0.15);border-bottom:none}
+  .lock-timer{flex-wrap:wrap;justify-content:center}
+}
+@media(max-width:480px){
+  .products-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NW SHOP</div>
+  <div class="nav-links">
+    <a href="#products">Collection</a>
+    <a href="#newsletter">Alertes</a>
+  </div>
+  <a href="index.html" class="nav-back">← NEWORLD</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">NEWORLD Shop — Collection officielle</div>
+  <div class="hero-title">
+    PORTE<br>
+    <span class="yellow">LE</span><br>
+    <span class="outline">MONDE.</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">Merch street-luxe NEWORLD. Chaque pièce est une déclaration. Qualité premium, éditions limitées, identité forte.</p>
+  </div>
+</section>
+
+<!-- PRODUITS + ÉCRAN DE BLOCAGE -->
+<section class="products" id="products">
+  <div class="section-label">01 — La collection</div>
+
+  <!-- ARTICLES FLOUTÉS EN ARRIÈRE PLAN -->
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-badge badge-new">Nouveau</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Hoodie NEWORLD Essential</div>
+        <div class="product-desc">Coton premium 380g, coupe oversize, broderie ton sur ton.</div>
+        <div class="product-footer"><div class="product-price">69€</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-limited">Limité</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Jacket NEWORLD Collab</div>
+        <div class="product-desc">Édition limitée. Collaboration exclusive.</div>
+        <div class="product-footer"><div class="product-price">129€</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">T-shirt Logo NW</div>
+        <div class="product-desc">100% coton peigné, logo sérigraphié.</div>
+        <div class="product-footer"><div class="product-price">39€</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Cap NW Signature</div>
+        <div class="product-desc">Snapback ajustable, broderie frontale.</div>
+        <div class="product-footer"><div class="product-price">34€</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-soon">Bientôt</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Sweat NEWORLD Corp</div>
+        <div class="product-desc">Sweat crewneck premium.</div>
+        <div class="product-footer"><div class="product-price">—</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-soon">Bientôt</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Jogging Set NW</div>
+        <div class="product-desc">Ensemble jogging coordonné.</div>
+        <div class="product-footer"><div class="product-price">—</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-soon">Bientôt</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Tote Bag NW Globe</div>
+        <div class="product-desc">Sérigraphie globe NEWORLD.</div>
+        <div class="product-footer"><div class="product-price">—</div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-soon">Bientôt</div>
+      <div class="product-img"><div class="product-img-text">NEWORLD</div></div>
+      <div class="product-info">
+        <div class="product-name">Socks Pack NW</div>
+        <div class="product-desc">Pack 3 paires. Détails brodés.</div>
+        <div class="product-footer"><div class="product-price">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉCRAN DE BLOCAGE PAR DESSUS -->
+  <div class="products-lock">
+    <div class="lock-label">⚡ Collection en cours de préparation</div>
+    <div class="lock-title">La collection<br><span>arrive bientôt.</span></div>
+    <div class="lock-timer">
+      <!-- JOURS cachés -->
+      <div class="lock-block">
+        <div class="lock-num hidden">??</div>
+        <div class="lock-unit hidden">jours</div>
+      </div>
+      <div class="lock-sep hidden">:</div>
+      <!-- MOIS cachés -->
+      <div class="lock-block">
+        <div class="lock-num hidden">??</div>
+        <div class="lock-unit hidden">mois</div>
+      </div>
+      <div class="lock-sep hidden">:</div>
+      <!-- HEURES visibles -->
+      <div class="lock-block">
+        <div class="lock-num visible" id="hours">00</div>
+        <div class="lock-unit visible">heures</div>
+      </div>
+      <div class="lock-sep visible">:</div>
+      <!-- MINUTES visibles -->
+      <div class="lock-block">
+        <div class="lock-num visible" id="minutes">00</div>
+        <div class="lock-unit visible">minutes</div>
+      </div>
+      <div class="lock-sep visible">:</div>
+      <!-- SECONDES visibles -->
+      <div class="lock-block">
+        <div class="lock-num visible" id="seconds">00</div>
+        <div class="lock-unit visible">secondes</div>
+      </div>
+    </div>
+    <div class="lock-form">
+      <input type="email" class="lock-input" placeholder="ton@email.com">
+      <button class="lock-btn">M'alerter</button>
+    </div>
+    <div class="lock-note">Pas de spam. Juste le drop qui compte.</div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">02 — Pourquoi NEWORLD</div>
+      <div class="why-title">Pas du<br><span>merch.</span><br>Une identité.</div>
+      <p class="why-text">Chaque pièce NEWORLD est pensée pour durer. Pas de fast fashion, pas de compromis sur la qualité. On produit peu, on produit bien.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">⚡</div>
+          <div>
+            <div class="why-point-title">Qualité premium</div>
+            <div class="why-point-text">Matières sélectionnées, finitions soignées. Chaque pièce est faite pour durer.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🔒</div>
+          <div>
+            <div class="why-point-title">Éditions limitées</div>
+            <div class="why-point-text">On ne réimprime pas. Quand c'est parti, c'est parti.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🌍</div>
+          <div>
+            <div class="why-point-title">Identité forte</div>
+            <div class="why-point-text">Porter NEWORLD c'est afficher une appartenance. Un univers, une vision, un monde.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-box"><div class="why-box-num">100%</div><div class="why-box-label">Coton premium</div></div>
+      <div class="why-box"><div class="why-box-num">Limité</div><div class="why-box-label">Éditions exclusives</div></div>
+      <div class="why-box"><div class="why-box-num">NW</div><div class="why-box-label">Identité NEWORLD Corporation</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-inner">
+    <div class="section-label" style="justify-content:center;margin-bottom:2rem">03 — Alertes drop</div>
+    <div class="newsletter-title">Sois le<br><span>premier.</span></div>
+    <p class="newsletter-desc">Inscris-toi pour être alerté en avant-première des drops et du lancement officiel.</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="ton@email.com">
+      <button class="newsletter-btn">M'alerter →</button>
+    </div>
+    <p class="newsletter-note">Pas de spam. Juste les drops qui comptent.</p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 NEWORLD Shop</span>
+  <a href="index.html" class="footer-link">← Retour NEWORLD</a>
+</footer>
+
+<script>
+const launchDate = new Date('2026-08-02T00:00:00');
+function updateCountdown(){
+  const now = new Date();
+  const diff = launchDate - now;
+  if(diff <= 0){
+    document.querySelector('.products-lock').style.display = 'none';
+    return;
+  }
+  const totalSeconds = Math.floor(diff/1000);
+  const seconds = totalSeconds%60;
+  const totalMinutes = Math.floor(totalSeconds/60);
+  const minutes = totalMinutes%60;
+  const totalHours = Math.floor(totalMinutes/60);
+  const hours = totalHours%24;
+  document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+</script>
+</body>
+</html>

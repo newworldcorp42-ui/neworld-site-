@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWORLD Production</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0a0a0a;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.1);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:#C9A84C}
+.nav-back{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);transition:color 0.2s}
+.nav-back:hover{color:#C9A84C}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,0.1)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(201,168,76,0.06) 0%,transparent 70%)}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:1.5rem;position:relative}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3.5rem,9vw,9rem);font-weight:800;line-height:0.9;letter-spacing:-0.02em;margin-bottom:2rem;position:relative}
+.hero-title .gold{color:#C9A84C}
+.hero-title .outline{-webkit-text-stroke:1px rgba(255,255,255,0.3);color:transparent}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;position:relative}
+.hero-desc{max-width:480px;font-size:0.95rem;line-height:1.85;color:rgba(255,255,255,0.5)}
+.hero-stat{text-align:right}
+.hero-stat span{display:block;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#C9A84C;letter-spacing:0.05em}
+.hero-stat small{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+
+/* DEUX BRANCHES */
+.branches{padding:6rem 3rem;border-bottom:1px solid rgba(201,168,76,0.1)}
+.section-label{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-bottom:3rem;display:flex;align-items:center;gap:1rem}
+.section-label::after{content:'';flex:1;height:0.5px;background:rgba(201,168,76,0.2)}
+.branches-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.branch-card{border:1px solid rgba(201,168,76,0.15);padding:3rem 2.5rem;transition:all 0.3s;cursor:default;position:relative;overflow:hidden}
+.branch-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.05) 0%,transparent 100%);opacity:0;transition:opacity 0.3s}
+.branch-card:hover{border-color:rgba(201,168,76,0.4)}
+.branch-card:hover::before{opacity:1}
+.branch-tag{display:inline-block;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;background:rgba(201,168,76,0.1);color:#C9A84C;padding:0.4rem 1rem;margin-bottom:1.5rem}
+.branch-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:1rem;line-height:1.1}
+.branch-title span{color:#C9A84C}
+.branch-desc{font-size:0.85rem;line-height:1.85;color:rgba(255,255,255,0.45);margin-bottom:2rem}
+.branch-services{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2.5rem}
+.branch-service{display:flex;align-items:center;gap:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.6)}
+.branch-service::before{content:'';width:4px;height:4px;background:#C9A84C;border-radius:50%;flex-shrink:0}
+.branch-btn{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:0.25rem;transition:border-color 0.2s}
+.branch-btn:hover{border-color:#C9A84C}
+
+/* POURQUOI NOUS */
+.why{padding:6rem 3rem;border-bottom:1px solid rgba(201,168,76,0.1)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.why-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,4rem);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:2rem}
+.why-title span{color:#C9A84C}
+.why-text{font-size:0.88rem;line-height:1.9;color:rgba(255,255,255,0.45);margin-bottom:2.5rem}
+.why-points{display:flex;flex-direction:column;gap:1.5rem}
+.why-point{display:flex;gap:1.25rem;align-items:flex-start;padding-bottom:1.5rem;border-bottom:1px solid rgba(201,168,76,0.08)}
+.why-point:last-child{border-bottom:none}
+.why-point-num{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#C9A84C;min-width:2.5rem;line-height:1}
+.why-point-title{font-size:0.9rem;font-weight:500;color:#fff;margin-bottom:0.3rem}
+.why-point-text{font-size:0.8rem;line-height:1.75;color:rgba(255,255,255,0.4)}
+.stats-col{display:flex;flex-direction:column;gap:1rem}
+.stat-box{background:#111;border:1px solid rgba(201,168,76,0.12);padding:2rem 2.5rem;transition:border-color 0.25s}
+.stat-box:hover{border-color:rgba(201,168,76,0.35)}
+.stat-box-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#C9A84C;letter-spacing:0.04em;line-height:1}
+.stat-box-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.4rem}
+
+/* PROCESS */
+.process{padding:6rem 3rem;border-bottom:1px solid rgba(201,168,76,0.1)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3rem;border:1px solid rgba(201,168,76,0.1)}
+.step{padding:2.5rem 2rem;border-right:1px solid rgba(201,168,76,0.08)}
+.step:last-child{border-right:none}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(201,168,76,0.12);line-height:1;margin-bottom:1rem}
+.step-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;color:#C9A84C}
+.step-desc{font-size:0.78rem;line-height:1.8;color:rgba(255,255,255,0.35)}
+
+/* CONTACT */
+.contact{padding:6rem 3rem;background:#060606}
+.contact-inner{max-width:800px;margin:0 auto}
+.contact-top{text-align:center;margin-bottom:4rem}
+.contact-title{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1}
+.contact-title span{color:#C9A84C}
+.contact-sub{font-size:0.9rem;color:rgba(255,255,255,0.35);line-height:1.8}
+.contact-tabs{display:flex;gap:0;margin-bottom:2.5rem;border:1px solid rgba(201,168,76,0.15)}
+.tab{flex:1;padding:1rem;text-align:center;font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.2s;border-right:1px solid rgba(201,168,76,0.15)}
+.tab:last-child{border-right:none}
+.tab.active{background:rgba(201,168,76,0.1);color:#C9A84C}
+.tab:hover{color:#C9A84C}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-field{display:flex;flex-direction:column;gap:0.4rem}
+.f-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.f-field input,.f-field select,.f-field textarea{background:#111;border:1px solid rgba(201,168,76,0.12);color:#fff;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;resize:none}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{border-color:#C9A84C}
+.f-field select option{background:#111}
+.submit-btn{background:#C9A84C;color:#0a0a0a;padding:1rem;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;margin-top:0.5rem}
+.submit-btn:hover{background:#fff}
+
+footer{background:#050505;padding:2rem 3rem;border-top:1px solid rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.2)}
+.footer-link{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);transition:color 0.2s}
+.footer-link:hover{color:#C9A84C}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .hero,.branches,.why,.process,.contact{padding:4rem 1.5rem}
+  .hero{padding-top:80px}
+  .branches-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr;gap:3rem}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .step{border-right:none;border-bottom:1px solid rgba(201,168,76,0.08)}
+  .f-row{grid-template-columns:1fr}
+  .contact-tabs{flex-direction:column}
+  .tab{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NW PRODUCTION</div>
+  <a href="index.html" class="nav-back">← Retour NEWORLD</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-eyebrow">NEWORLD Production — Management & Agence digitale</div>
+  <div class="hero-title">
+    Ton projet.<br>
+    <span class="gold">Notre</span><br>
+    <span class="outline">expertise.</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">Des managers expérimentés qui ont accompagné des créateurs jusqu'à 100K abonnés et au-delà. Nous gérons votre image, votre croissance et vos partenariats — vous vous concentrez sur votre talent.</p>
+    <div class="hero-stat">
+      <span>100K+</span>
+      <small>Abonnés accompagnés</small>
+    </div>
+  </div>
+</section>
+
+<section class="branches">
+  <div class="section-label">01 — Nos deux pôles</div>
+  <div class="branches-grid">
+
+    <div class="branch-card">
+      <div class="branch-tag">Pour les créateurs</div>
+      <div class="branch-title">Vous êtes<br><span>artiste ou créateur ?</span></div>
+      <p class="branch-desc">YouTubeurs, rappeurs, influenceurs — nous prenons en charge votre carrière de A à Z. Stratégie, gestion, développement d'audience et mise en relation avec les bonnes personnes.</p>
+      <div class="branch-services">
+        <div class="branch-service">Management de carrière complet</div>
+        <div class="branch-service">Stratégie réseaux sociaux & croissance</div>
+        <div class="branch-service">Booking concerts & événements</div>
+        <div class="branch-service">Mise en relation avec des marques</div>
+        <div class="branch-service">Figurants qualifiés pour vos productions</div>
+        <div class="branch-service">Suivi personnalisé & reporting mensuel</div>
+      </div>
+      <a href="#contact" class="branch-btn">Être accompagné →</a>
+    </div>
+
+    <div class="branch-card">
+      <div class="branch-tag">Pour les professionnels</div>
+      <div class="branch-title">Vous êtes<br><span>une marque ou un pro ?</span></div>
+      <p class="branch-desc">Restaurants, commerces, entreprises — nous optimisons votre image sur les réseaux sociaux et vous connectons aux bons influenceurs pour vos campagnes publicitaires.</p>
+      <div class="branch-services">
+        <div class="branch-service">Audit & optimisation image digitale</div>
+        <div class="branch-service">Gestion réseaux sociaux (Instagram, TikTok...)</div>
+        <div class="branch-service">Mise en relation avec des influenceurs ciblés</div>
+        <div class="branch-service">Campagnes publicitaires sur mesure</div>
+        <div class="branch-service">Création de contenu professionnel</div>
+        <div class="branch-service">Reporting & analyse de performance</div>
+      </div>
+      <a href="#contact" class="branch-btn">Nous contacter →</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">02 — Pourquoi NEWORLD</div>
+      <div class="why-title">Un vrai<br><span>accompagnement.</span><br>Pas des promesses.</div>
+      <p class="why-text">NEWORLD Production c'est une équipe qui a fait ses preuves sur le terrain. Nos managers ont accompagné des créateurs de contenu et artistes tout au long de leur carrière — des débuts jusqu'aux sommets.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-point-num">01</div>
+          <div>
+            <div class="why-point-title">Expérience prouvée</div>
+            <div class="why-point-text">Nos managers ont accompagné des YouTubeurs et artistes jusqu'à 100K abonnés et plus. Pas des théoriciens — des praticiens.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-num">02</div>
+          <div>
+            <div class="why-point-title">Réseau qualifié</div>
+            <div class="why-point-text">Accès à notre réseau de figurants professionnels, influenceurs, marques partenaires et acteurs de l'industrie.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-point-num">03</div>
+          <div>
+            <div class="why-point-title">Suivi sur le long terme</div>
+            <div class="why-point-text">Nous construisons des carrières durables. Pas de promesses en l'air — un vrai plan d'action avec des objectifs clairs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-col">
+      <div class="stat-box">
+        <div class="stat-box-num">100K+</div>
+        <div class="stat-box-label">Abonnés accompagnés</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-num">360°</div>
+        <div class="stat-box-label">Gestion complète</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-num">2</div>
+        <div class="stat-box-label">Pôles d'expertise</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-label">03 — Notre process</div>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Prise de contact</div>
+      <p class="step-desc">On discute de votre projet, vos objectifs et vos besoins. Gratuit et sans engagement.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Audit & Stratégie</div>
+      <p class="step-desc">On analyse votre situation actuelle et on construit un plan d'action sur mesure.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Mise en place</div>
+      <p class="step-desc">On passe à l'action. Gestion quotidienne, création de contenu et développement.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Croissance</div>
+      <p class="step-desc">Suivi des résultats, ajustements et optimisation continue pour atteindre vos objectifs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-top">
+      <div class="contact-title">Travaillons<br><span>ensemble.</span></div>
+      <p class="contact-sub">Que vous soyez créateur ou professionnel, on a une solution pour vous.</p>
+    </div>
+    <div class="contact-tabs">
+      <div class="tab active" onclick="switchTab(this,'creator')">Je suis créateur / artiste</div>
+      <div class="tab" onclick="switchTab(this,'pro')">Je suis une marque / pro</div>
+    </div>
+    <div class="contact-form" id="form-creator">
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Nom / Pseudo</label><input type="text" placeholder="Votre nom ou pseudo"></div>
+        <div class="f-field"><label class="f-label">Email</label><input type="email" placeholder="email@exemple.com"></div>
+      </div>
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Plateforme principale</label>
+          <select>
+            <option>YouTube</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+            <option>Spotify / Musique</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field"><label class="f-label">Abonnés actuels</label>
+          <select>
+            <option>Moins de 1K</option>
+            <option>1K — 10K</option>
+            <option>10K — 50K</option>
+            <option>50K — 100K</option>
+            <option>Plus de 100K</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-field"><label class="f-label">Décrivez votre projet</label><textarea rows="4" placeholder="Parlez-nous de vous et de vos objectifs..."></textarea></div>
+      <button class="submit-btn">Envoyer ma demande →</button>
+    </div>
+    <div class="contact-form" id="form-pro" style="display:none">
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Nom de l'entreprise</label><input type="text" placeholder="Votre entreprise"></div>
+        <div class="f-field"><label class="f-label">Email professionnel</label><input type="email" placeholder="contact@entreprise.com"></div>
+      </div>
+      <div class="f-row">
+        <div class="f-field"><label class="f-label">Secteur d'activité</label>
+          <select>
+            <option>Restaurant / Food</option>
+            <option>Mode / Lifestyle</option>
+            <option>Beauté / Cosmétiques</option>
+            <option>Sport / Fitness</option>
+            <option>Tech / Digital</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="f-field"><label class="f-label">Budget mensuel</label>
+          <select>
+            <option>Moins de 500€</option>
+            <option>500€ — 1 500€</option>
+            <option>1 500€ — 5 000€</option>
+            <option>Plus de 5 000€</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-field"><label class="f-label">Votre besoin</label><textarea rows="4" placeholder="Décrivez votre projet et ce que vous recherchez..."></textarea></div>
+      <button class="submit-btn">Envoyer ma demande →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 NEWORLD Production</span>
+  <a href="index.html" class="footer-link">← Retour au hub NEWORLD</a>
+</footer>
+
+<script>
+function switchTab(el, type){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('form-creator').style.display = type==='creator' ? 'flex' : 'none';
+  document.getElementById('form-pro').style.display = type==='pro' ? 'flex' : 'none';
+}
+</script>
+</body>
+</html>

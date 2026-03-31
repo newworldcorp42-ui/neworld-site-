@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEWORLD — Le Nouveau Monde</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#fff;color:#080808;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.06);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem}
+.nav-logo img{height:36px;filter:invert(1);mix-blend-mode:multiply}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:0.75rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#888;transition:color 0.2s}
+.nav-links a:hover{color:#080808}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 2rem 4rem}
+.grid-bg{position:absolute;inset:0;z-index:0}
+.grid-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-logo{width:220px;height:220px;margin:0 auto 2rem;animation:rotateLogo 20s linear infinite}
+.hero-logo img{width:100%;height:100%;object-fit:contain;filter:invert(0)}
+@keyframes rotateLogo{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.hero-tag{display:inline-block;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:#0057FF;border:1px solid rgba(0,87,255,0.3);padding:0.4rem 1.2rem;margin-bottom:1.5rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,12vw,11rem);line-height:0.9;letter-spacing:0.03em;margin-bottom:1rem}
+.hero-title .blue{color:#0057FF}
+.hero-sub{font-size:1rem;color:#666;margin-bottom:2.5rem;line-height:1.7}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-black{background:#080808;color:#fff;padding:1rem 2.5rem;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s}
+.btn-black:hover{background:#0057FF}
+.btn-outline{background:transparent;color:#080808;padding:1rem 2.5rem;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;border:1.5px solid #080808;cursor:pointer;transition:all 0.2s}
+.btn-outline:hover{background:#080808;color:#fff}
+
+/* TICKER */
+.ticker{background:#080808;color:#fff;padding:0.85rem 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;gap:3rem;animation:tick 25s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.15em;display:inline-flex;align-items:center;gap:0.8rem}
+.tdot{width:4px;height:4px;background:#0057FF;border-radius:50%;display:inline-block}
+
+/* UNIVERS SECTIONS */
+.univers{min-height:100vh;display:flex;align-items:center;padding:6rem 3rem;position:relative;overflow:hidden;border-top:1px solid rgba(0,0,0,0.06)}
+.univers-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;width:100%;max-width:1200px;margin:0 auto}
+.univers-inner.reverse{direction:rtl}
+.univers-inner.reverse > *{direction:ltr}
+.univers-num{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.3em;margin-bottom:1rem;opacity:0.5}
+.univers-title{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:800;line-height:0.95;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.univers-desc{font-size:0.9rem;line-height:1.85;opacity:0.65;margin-bottom:2.5rem;max-width:420px}
+.univers-btn{display:inline-flex;align-items:center;gap:0.75rem;font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:1rem 2.5rem;cursor:pointer;border:none;transition:all 0.25s}
+.univers-visual{height:420px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.visual-box{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:6rem;letter-spacing:0.05em;opacity:0.06;position:absolute}
+
+/* PRODUCTION — Noir & Or */
+.u-production{background:#0a0a0a;color:#fff}
+.u-production .univers-num{color:#C9A84C}
+.u-production .univers-title span{color:#C9A84C}
+.u-production .univers-btn{background:#C9A84C;color:#0a0a0a}
+.u-production .univers-btn:hover{background:#fff;color:#0a0a0a}
+.u-production .visual-box{color:#C9A84C;opacity:0.08;font-size:8rem}
+.prod-visual{width:280px;height:280px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;position:relative}
+.prod-visual::before{content:'';position:absolute;inset:-20px;border:1px solid rgba(201,168,76,0.1)}
+.prod-visual::after{content:'';position:absolute;inset:-40px;border:1px solid rgba(201,168,76,0.05)}
+.prod-inner{width:160px;height:160px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.2em;color:#C9A84C}
+
+/* MUSIC — Blanc & Noir */
+.u-music{background:#fff;color:#080808}
+.u-music .univers-num{color:#080808}
+.u-music .univers-title span{color:#080808;-webkit-text-stroke:2px #080808;color:transparent}
+.u-music .univers-btn{background:#080808;color:#fff}
+.u-music .univers-btn:hover{background:#333}
+.music-visual{display:flex;flex-direction:column;gap:8px;width:100%}
+.music-bar{height:3px;background:#080808;transform-origin:left}
+.music-bar:nth-child(1){width:100%}
+.music-bar:nth-child(2){width:75%}
+.music-bar:nth-child(3){width:90%}
+.music-bar:nth-child(4){width:60%}
+.music-bar:nth-child(5){width:85%}
+.music-bar:nth-child(6){width:45%}
+.music-bar:nth-child(7){width:95%}
+.music-bar:nth-child(8){width:70%}
+
+/* TRADING — Rouge & Vert */
+.u-trading{background:#0d0d0d;color:#fff}
+.u-trading .univers-num{color:#00C851}
+.u-trading .univers-title span{color:#00C851}
+.u-trading .univers-btn{background:#00C851;color:#0d0d0d}
+.u-trading .univers-btn:hover{background:#FF4444;color:#fff}
+.trading-visual{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:flex-end;height:200px;width:100%}
+.t-bar{border-radius:2px 2px 0 0;min-height:20px}
+.t-bar.up{background:#00C851}
+.t-bar.down{background:#FF4444}
+
+/* ACADEMY — Blanc & Bleu électrique */
+.u-academy{background:#f8f9ff;color:#080808}
+.u-academy .univers-num{color:#0057FF}
+.u-academy .univers-title span{color:#0057FF}
+.u-academy .univers-btn{background:#0057FF;color:#fff}
+.u-academy .univers-btn:hover{background:#0040cc}
+.academy-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%}
+.academy-card{background:#fff;border:1px solid rgba(0,87,255,0.15);padding:1.5rem;border-radius:4px}
+.academy-card-title{font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;color:#0057FF}
+.academy-card-bar{height:4px;background:rgba(0,87,255,0.15);border-radius:2px;margin-top:0.75rem}
+.academy-card-bar-fill{height:100%;background:#0057FF;border-radius:2px}
+
+/* SHOP — Noir & Jaune fluo */
+.u-shop{background:#0a0a0a;color:#fff}
+.u-shop .univers-num{color:#E8FF00}
+.u-shop .univers-title span{color:#E8FF00}
+.u-shop .univers-btn{background:#E8FF00;color:#0a0a0a}
+.u-shop .univers-btn:hover{background:#fff;color:#0a0a0a}
+.shop-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%}
+.shop-item{background:#141414;padding:2rem 1rem 1rem;text-align:center;border:1px solid rgba(232,255,0,0.1);transition:border-color 0.2s;cursor:pointer}
+.shop-item:hover{border-color:rgba(232,255,0,0.4)}
+.shop-item-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:rgba(232,255,0,0.2);margin-bottom:1rem}
+.shop-item-name{font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6)}
+.shop-item-price{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#E8FF00;margin-top:0.5rem}
+
+/* FOOTER */
+footer{background:#080808;color:#fff;padding:4rem 3rem 2rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-logo img{height:48px;filter:brightness(10);margin-bottom:1rem}
+.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;max-width:220px}
+.footer-col h4{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:1.2rem}
+.footer-col a{display:block;font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:0.65rem;transition:color 0.2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.25)}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .hero{padding:80px 1.5rem 3rem}
+  .univers{padding:4rem 1.5rem}
+  .univers-inner{grid-template-columns:1fr;gap:3rem}
+  .univers-inner.reverse{direction:ltr}
+  .univers-visual{height:280px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="OFFICIEL_LOG.png" alt="NEWORLD">
+  </div>
+  <div class="nav-links">
+    <a href="#production">Production</a>
+    <a href="#music">Music</a>
+    <a href="#trading">Trading</a>
+    <a href="#academy">Academy</a>
+    <a href="#shop">Shop</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="grid-bg"><canvas id="gridCanvas"></canvas></div>
+  <div class="hero-content">
+    <div class="hero-tag">Bienvenue dans le nouveau monde</div>
+    <div class="hero-logo">
+      <img src="OFFICIEL_LOG.png" alt="NEWORLD Corporation">
+    </div>
+    <div class="hero-title">NEW<span class="blue">WORLD</span></div>
+    <p class="hero-sub">Production · Music · Trading · Academy · Shop</p>
+    <div class="hero-ctas">
+      <a href="#production" class="btn-black">Explorer</a>
+      <a href="#shop" class="btn-outline">Notre Shop</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">NEWORLD PRODUCTION <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD MUSIC <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD TRADING <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD ACADEMY <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD SHOP <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD PRODUCTION <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD MUSIC <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD TRADING <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD ACADEMY <span class="tdot"></span></span>
+    <span class="ticker-item">NEWORLD SHOP <span class="tdot"></span></span>
+  </div>
+</div>
+
+<!-- PRODUCTION -->
+<section class="univers u-production" id="production">
+  <div class="univers-inner">
+    <div>
+      <div class="univers-num">01 — NEWORLD PRODUCTION</div>
+      <div class="univers-title">Nous<br><span>produisons</span><br>l'excellence.</div>
+      <p class="univers-desc">Production musicale, clips, contenus digitaux et événementiel. Nous donnons vie aux projets les plus ambitieux.</p>
+      <a href="production.html" class="univers-btn">Découvrir →</a>
+    </div>
+    <div class="univers-visual">
+      <div class="visual-box">PROD</div>
+      <div class="prod-visual">
+        <div class="prod-inner">NW PROD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="univers u-music" id="music">
+  <div class="univers-inner reverse">
+    <div>
+      <div class="univers-num">02 — NEWORLD MUSIC</div>
+      <div class="univers-title">Le son<br><span>du nouveau</span><br>monde.</div>
+      <p class="univers-desc">Label rap indépendant. Nous signons, développons et propulsons les artistes de demain. Du premier titre aux grandes scènes.</p>
+      <a href="music.html" class="univers-btn">Découvrir →</a>
+    </div>
+    <div class="univers-visual">
+      <div style="width:100%;padding:2rem">
+        <div class="music-visual">
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+          <div class="music-bar"></div>
+        </div>
+        <div style="margin-top:3rem;font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:0.05em;opacity:0.08">MUSIC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADING -->
+<section class="univers u-trading" id="trading">
+  <div class="univers-inner">
+    <div>
+      <div class="univers-num">03 — NEWORLD TRADING</div>
+      <div class="univers-title">L'argent<br><span>ne dort</span><br>jamais.</div>
+      <p class="univers-desc">Formations trading, crypto et marchés financiers. Signaux, stratégies et communauté pour passer au niveau supérieur.</p>
+      <a href="trading.html" class="univers-btn">Découvrir →</a>
+    </div>
+    <div class="univers-visual" style="align-items:flex-end;padding:2rem 0">
+      <div class="trading-visual">
+        <div class="t-bar up" style="height:60%"></div>
+        <div class="t-bar up" style="height:80%"></div>
+        <div class="t-bar down" style="height:55%"></div>
+        <div class="t-bar up" style="height:90%"></div>
+        <div class="t-bar up" style="height:75%"></div>
+        <div class="t-bar down" style="height:40%"></div>
+        <div class="t-bar up" style="height:95%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMY -->
+<section class="univers u-academy" id="academy">
+  <div class="univers-inner reverse">
+    <div>
+      <div class="univers-num">04 — NEWORLD ACADEMY</div>
+      <div class="univers-title">Apprends.<br><span>Applique.</span><br>Domine.</div>
+      <p class="univers-desc">Formations en ligne sur le rap, le marketing digital, le trading et le gaming. Des méthodes concrètes pour passer à l'action.</p>
+      <a href="academy.html" class="univers-btn">Découvrir →</a>
+    </div>
+    <div class="univers-visual">
+      <div class="academy-visual">
+        <div class="academy-card">
+          <div class="academy-card-title">Marketing Digital</div>
+          <div style="font-size:0.75rem;color:#666">12 modules</div>
+          <div class="academy-card-bar"><div class="academy-card-bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="academy-card">
+          <div class="academy-card-title">Trading</div>
+          <div style="font-size:0.75rem;color:#666">8 modules</div>
+          <div class="academy-card-bar"><div class="academy-card-bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="academy-card">
+          <div class="academy-card-title">Rap & Studio</div>
+          <div style="font-size:0.75rem;color:#666">10 modules</div>
+          <div class="academy-card-bar"><div class="academy-card-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="academy-card">
+          <div class="academy-card-title">Gaming</div>
+          <div style="font-size:0.75rem;color:#666">6 modules</div>
+          <div class="academy-card-bar"><div class="academy-card-bar-fill" style="width:45%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="univers u-shop" id="shop">
+  <div class="univers-inner">
+    <div>
+      <div class="univers-num">05 — NEWORLD SHOP</div>
+      <div class="univers-title">Porte<br><span>le nouveau</span><br>monde.</div>
+      <p class="univers-desc">Merch street-luxe NEWORLD. Chaque pièce est une déclaration. Éditions limitées, qualité premium.</p>
+      <a href="shop.html" class="univers-btn">Découvrir →</a>
+    </div>
+    <div class="univers-visual">
+      <div class="shop-visual">
+        <div class="shop-item">
+          <div class="shop-item-logo">NW</div>
+          <div class="shop-item-name">Hoodie Essential</div>
+          <div class="shop-item-price">69€</div>
+        </div>
+        <div class="shop-item">
+          <div class="shop-item-logo">NW</div>
+          <div class="shop-item-name">T-shirt Logo</div>
+          <div class="shop-item-price">39€</div>
+        </div>
+        <div class="shop-item">
+          <div class="shop-item-logo">NW</div>
+          <div class="shop-item-name">Jacket Collab</div>
+          <div class="shop-item-price">129€</div>
+        </div>
+        <div class="shop-item">
+          <div class="shop-item-logo">NW</div>
+          <div class="shop-item-name">Cap Signature</div>
+          <div class="shop-item-price">34€</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="OFFICIEL_LOG.png" alt="NEWORLD"></div>
+      <p>L'empire de demain se construit aujourd'hui. Production, Music, Trading, Academy, Shop.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Univers</h4>
+      <a href="production.html">Production</a>
+      <a href="music.html">Music</a>
+      <a href="trading.html">Trading</a>
+      <a href="academy.html">Academy</a>
+      <a href="shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <h4>Réseaux</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Spotify</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#">contact@neworld.fr</a>
+      <a href="#">booking@neworld.fr</a>
+      <a href="#">academy@neworld.fr</a>
+    </div>
+    <div class="footer-col">
+      <h4>Légal</h4>
+      <a href="#">Mentions légales</a>
+      <a href="#">CGV</a>
+      <a href="#">Confidentialité</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 NEWORLD Corporation — Tous droits réservés</span>
+  </div>
+</footer>
+
+<script>
+// Animation grille qui pulse depuis le centre
+const canvas = document.getElementById('gridCanvas');
+const ctx = canvas.getContext('2d');
+let w, h, cx, cy, t = 0;
+
+function resize(){
+  w = canvas.width = canvas.offsetWidth;
+  h = canvas.height = canvas.offsetHeight;
+  cx = w/2; cy = h/2;
+}
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  const spacing = 60;
+  const maxDist = Math.sqrt(cx*cx + cy*cy);
+  
+  // Lignes verticales
+  for(let x = cx % spacing; x < w; x += spacing){
+    const dist = Math.abs(x - cx);
+    const wave = Math.sin(dist/80 - t) * 0.5 + 0.5;
+    ctx.strokeStyle = `rgba(0,87,255,${0.03 + wave * 0.06})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+  
+  // Lignes horizontales
+  for(let y = cy % spacing; y < h; y += spacing){
+    const dist = Math.abs(y - cy);
+    const wave = Math.sin(dist/80 - t) * 0.5 + 0.5;
+    ctx.strokeStyle = `rgba(0,87,255,${0.03 + wave * 0.06})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+  
+  t += 0.02;
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize', resize);
+resize();
+draw();
+
+// Scroll logo dans nav
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 50){
+    nav.style.background = 'rgba(255,255,255,0.98)';
+  } else {
+    nav.style.background = 'rgba(255,255,255,0.95)';
+  }
+});
+</script>
+</body>
+</html>
